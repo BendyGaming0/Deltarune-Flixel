@@ -1,0 +1,13 @@
+DELTARUNE
+
+Toby Fox - Lead Developer Of Deltarune
+Temmie Chang - Main Artist Of Deltarune
+Deltarune Chapter 2 Team
+-
+Helped With The Development
+
+DELTARUNE HaxeFlixel Port
+
+The Spriter's Resource - Sprite Rips
+HaxeFlixel Demos - Shader Code For Title Screen
+Bendy Gaming - Created The Port

@@ -1,0 +1,77 @@
+{
+    "style": "darkworld",
+    "dialouge": [
+        {
+            "portrait": "susie",
+            "text": "Hey Kris, wanna hear something funny?",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        },
+        {
+            "portrait": "bf",
+            "text": "beep",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        },
+        {
+            "portrait": "susie-suprised",
+            "text": "WHAT THE ABSOLUTE FU-",
+            "speed": 2,
+            "pausespeed": 1,
+            "autocontinue": true,
+            "skippable": false
+        },
+        {
+            "portrait": "bf",
+            "text": "bee bo bop",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        },
+        {
+            "portrait": "susie",
+            "text": "what?",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        },
+        {
+            "portrait": "bf",
+            "text": "bap beeop bleep blop",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        },
+        {
+            "portrait": "susie",
+            "text": "I literraly can't understand you",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        },
+        {
+            "portrait": "bf",
+            "text": "fuck you",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        },
+        {
+            "portrait": "susie",
+            "text": ":(",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        }
+    ]
+}

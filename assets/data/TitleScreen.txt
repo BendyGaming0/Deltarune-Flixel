@@ -1,0 +1,9 @@
+0.02
+9
+0.2
+these are the settings for the title sreen's wave effect, go wild
+
+default:
+0.02
+9
+0.2
