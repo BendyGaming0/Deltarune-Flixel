@@ -1,2 +1,2 @@
 # Deltarune-Flixel
- Deltarune ported to HaxeFlixel
+ A Port of Deltarune's Core to HaxeFlixel with features like scripting

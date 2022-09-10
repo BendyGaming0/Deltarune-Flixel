@@ -41,16 +41,18 @@
 
 	<!-- _______________________________ Libraries ______________________________ -->
 
-	<haxelib name="flixel" />
+	<!--Flixel Core Package-->
+	<haxelib name="flixel"/>
 
-	<!--In case you want to use the addons package-->
-	<haxelib name="flixel-addons" />
+	<!--Addons Package-->
+	<haxelib name="flixel-addons"/>
 
-	<!--In case you want to use the ui package-->
-	<haxelib name="flixel-ui" />
+	<!--UI Package-->
+	<haxelib name="flixel-ui"/>
 
-	<!--In case you want to use nape with flixel-->
-	<!--<haxelib name="nape-haxe4" />-->
+	<!--Scripting Package-->
+	<haxedef name="hscriptPos"/>
+	<haxelib name="hscript"/>
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 

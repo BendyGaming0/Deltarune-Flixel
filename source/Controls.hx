@@ -1,5 +1,6 @@
 package;
 
+import tools.PathGenerator;
 import flixel.tweens.FlxEase;
 import flixel.tweens.FlxTween;
 import openfl.display.Bitmap;

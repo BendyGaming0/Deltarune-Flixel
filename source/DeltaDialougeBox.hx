@@ -1,5 +1,6 @@
 package;
 
+import tools.PathGenerator;
 import openfl.Assets;
 import flixel.system.FlxSound;
 import flixel.math.FlxPoint;
@@ -12,6 +13,7 @@ import flixel.text.FlxText;
 import flixel.group.FlxSpriteGroup;
 import flixel.FlxSprite;
 import flixel.addons.text.FlxTypeText;
+import states.PlayState;
 
 typedef DialougeStructure = {
     var style:String;

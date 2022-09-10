@@ -1,26 +1,30 @@
 package editors;
 
-import flixel.addons.ui.FlxUITypedButton;
-import flixel.FlxSprite;
-import flixel.addons.ui.FlxUIAssets;
-import flixel.util.FlxStringUtil;
-import flixel.addons.ui.FlxUI9SliceSprite;
-import flixel.ui.FlxButton;
-import sys.io.File;
-import openfl.net.FileFilter;
 import flixel.FlxG;
-import flixel.util.FlxColor;
+import flixel.FlxSprite;
+import flixel.ui.FlxButton;
 import flixel.text.FlxText;
+import flixel.util.FlxColor;
+import flixel.util.FlxStringUtil;
 import flixel.addons.ui.FlxUIState;
+import flixel.addons.ui.FlxUIAssets;
 import flixel.addons.ui.FlxInputText;
-import flixel.addons.ui.FlxUINumericStepper;
 import flixel.addons.ui.FlxUICheckBox;
+import flixel.addons.ui.FlxUITypedButton;
+import flixel.addons.ui.FlxUI9SliceSprite;
+import flixel.addons.ui.FlxUINumericStepper;
 
+import openfl.net.FileFilter;
 import openfl.net.FileReference;
 import openfl.events.Event;
 import openfl.events.IOErrorEvent;
 
+import sys.io.File;
+
 import haxe.Json;
+
+import states.MenuState;
+import tools.PathGenerator;
 
 import DeltaDialougeBox;
 

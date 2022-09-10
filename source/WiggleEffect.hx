@@ -11,6 +11,9 @@ enum WiggleEffectType
 	FLAG;
 }
 
+/**
+ * Created by the HaxeFlixel Dev team (thanks!)
+ */
 class WiggleEffect
 {
 	public var shader(default, null):WiggleShader = new WiggleShader();

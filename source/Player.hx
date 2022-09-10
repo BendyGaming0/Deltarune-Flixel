@@ -1,5 +1,6 @@
 package;
 
+import tools.PathGenerator;
 import flixel.FlxObject;
 import flixel.math.FlxPoint;
 import flixel.FlxG;

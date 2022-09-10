@@ -47,6 +47,7 @@ class ConsoleBorder extends Sprite
 
     public function switchTo(id:String = 'default')
     {
+        if (ids.get(id) == curId) {return;}
 		nextId = ids.get(id);
         if (nextId == null) {nextId = 0;}
         state = 'fadeOut';

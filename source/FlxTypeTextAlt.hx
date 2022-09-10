@@ -13,10 +13,7 @@ import flash.media.Sound;
 class TypeSound extends Sound {}
 
 /**
- * This is loosely based on the TypeText class by Noel Berry, who wrote it for his Ludum Dare 22 game - Abandoned
- * http://www.ludumdare.com/compo/ludum-dare-22/?action=preview&uid=1527
- * @author Noel Berry
- * oh yeah this is bassically a copy paste of FlxTypeText
+ * Modified version of FlxTypeText for more complex dialouge
  */
 class FlxTypeTextAlt extends FlxText
 {

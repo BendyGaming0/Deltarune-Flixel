@@ -18,7 +18,7 @@ class Main extends Sprite
 	public static var gamewidth:Int = 640;
 	public static var gameheight:Int = 480;
 
-	public static var fps:FPS;
+	public static var fps:GameFps;
 	public static var border:ConsoleBorder;
 	public static var screenRatio:ScreenRatio = FOUR_THREE;
 
@@ -59,11 +59,20 @@ class Main extends Sprite
 	{
 		border = new ConsoleBorder();
 		addChild(border);
-		FlxSplash.nextState = TransitionState;
+		FlxSplash.nextState = states.TransitionState;
 		// "Game" is just a slighly modified version of FlxGame to let the console borders work
 		addChild(new Game(gamewidth, gameheight, FlxSplash, -1, 30, 30, false));
+		addChild(fps = new GameFps());
 		//Controls.addControllerToast();
 	}
+
+	public static var framerate(get, set):Float;
+
+	public static function set_framerate(value:Float)
+		return openfl.Lib.current.stage.frameRate = value;
+
+	public static function get_framerate()
+		return openfl.Lib.current.stage.frameRate;
 
 	var skipNext:Bool = false;
 

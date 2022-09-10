@@ -24,6 +24,6 @@ class CustomScaleMode extends BaseScaleMode
 		}
 
         if (Main.screenRatio == SIXTEEN_NINE)
-            gameSize.scale(0.85);
+            gameSize.scale(0.875);
 	}
 }
