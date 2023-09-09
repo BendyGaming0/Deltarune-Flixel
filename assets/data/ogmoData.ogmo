@@ -17,7 +17,7 @@
   "compactExport": false,
   "externalScript": "",
   "playCommand": "PlayCommand.bat",
-  "entityTags": [],
+  "entityTags": ["warp data", "required", "essential", "objects", "collision"],
   "layers": [
     {
       "definition": "entity",
@@ -25,6 +25,14 @@
       "gridSize": {"x": 10, "y": 10},
       "exportID": "07649439",
       "requiredTags": [],
+      "excludedTags": ["collision"]
+    },
+    {
+      "definition": "entity",
+      "name": "collision",
+      "gridSize": {"x": 10, "y": 10},
+      "exportID": "21538400",
+      "requiredTags": ["collision"],
       "excludedTags": []
     },
     {
@@ -80,7 +88,7 @@
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
-      "tags": [],
+      "tags": ["required"],
       "values": [],
       "texture": "../images/gfRpg.png",
       "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAeCAYAAADD0FVVAAAAAXNSR0IArs4c6QAAAnBJREFUSEu1lU9IFUEcx39L8VR6L8k/T5Quph7CTlKiYCBCCr0iSIgOXgQvIqSeFIR3eBDUKRXEi9ClQwgKkk/QIAIDRaNT0kHTiyj+jVJRH8bGd3q/Yd7uzO4qOJednf3NZ76/f7MWXcKwgjAfW4X2B3snkC14RkOA+MBE422Kz/wggNV100FaKDY+Ko1IJybXDojBznUd2AUFEICF5XXfyFRX3JQeqMYZUAayAYOxGQPvmPOT7Tg0/O4J9ZWaNvCFcsxYnZdC9gQxV2PrUqomAsDZ3f9FcL/AypirXhihugS93YjSt9SW2N9kH9K0FRbzqlARtZZsZ1SHVimXEZRBFQagM6/jVNDdQbtvhuSzsScRDAoIwJX5OVR6/aoAzi0OC/jBp02pKtJQLOa199oFeO3PGS3tHXvHFFCMz4clEqqrggtBGWwqq/rwhvwEz9RkubKvKsWuvKw9F3f/NF+sMTiQ++x6rO4ZjfzNc0HbruxT8suoiKsOrFV6XmhgpSil5/FO6jq6S3eyV6Xa7ye3qP/aV3qfGCCUFpT6QnMjYVpJFdFccoAoGiKEAGAeAMJ12k5RbazTG4oalcB0fTqBLnC6XgtPf3rX6U5WmaxPJAKKPzb1C5eh+MF0l1DIjQEbTyiU1GTX2MJ1qHBsVkGqzfzJfEbCtb8TgNlVJAytKVQvDouWRYJ4OIFY9/xDStXRkIRygnQwPsgfmk4aK+XL5MLQh7kVdnL8HW0+eUHoInRX8cQgxZ620NTvZaMg4wcAx3qr6dfLFeEVQzG/0VdOza8WjGAtFEC157mLnN2Fg3SKjVDTledcDwwNCjTZ/QN6+5MuqtSFZgAAAABJRU5ErkJggg=="
@@ -118,7 +126,7 @@
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
-      "tags": [],
+      "tags": ["objects"],
       "values": [
         {"name": "dialouge", "definition": "String", "display": 2, "defaults": "_NULL", "maxLength": 0, "trimWhitespace": true}
       ]
@@ -156,7 +164,7 @@
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
-      "tags": [],
+      "tags": ["essential", "objects"],
       "values": []
     },
     {
@@ -192,7 +200,7 @@
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
-      "tags": [],
+      "tags": ["warp data"],
       "values": [
         {"name": "entranceTag", "definition": "String", "display": 2, "defaults": "null", "maxLength": 0, "trimWhitespace": true},
         {"name": "targetRoom", "definition": "String", "display": 1, "defaults": "001", "maxLength": 0, "trimWhitespace": true},
@@ -235,7 +243,7 @@
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
-      "tags": [],
+      "tags": ["warp data"],
       "values": [
         {"name": "entranceTag", "definition": "String", "display": 1, "defaults": "null", "maxLength": 0, "trimWhitespace": true},
         {"name": "useXoffset", "definition": "Boolean", "display": 0, "defaults": true},
@@ -275,12 +283,52 @@
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
-      "tags": [],
+      "tags": ["essential"],
       "values": [
         {"name": "dialouge", "definition": "String", "display": 0, "defaults": "", "maxLength": 0, "trimWhitespace": true},
         {"name": "width", "definition": "Integer", "display": 0, "defaults": 1, "bounded": false, "min": 1, "max": 16},
         {"name": "height", "definition": "Integer", "display": 0, "defaults": 1, "bounded": false, "min": 1, "max": 16}
       ]
+    },
+    {
+      "exportID": "21495822",
+      "name": "collision",
+      "limit": -1,
+      "size": {"x": 10, "y": 10},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#ff0000ff",
+      "tileX": true,
+      "tileY": true,
+      "tileSize": {"x": 16, "y": 16},
+      "resizeableX": true,
+      "resizeableY": true,
+      "rotatable": true,
+      "rotationDegrees": 15,
+      "canFlipX": false,
+      "canFlipY": false,
+      "canSetColor": false,
+      "hasNodes": false,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": ["essential", "collision"],
+      "values": [
+        {"name": "active", "definition": "Boolean", "display": 0, "defaults": true}
+      ],
+      "texture": "../../ignore/gitignore/collision editor.png",
+      "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAAXNSR0IArs4c6QAAAGhJREFUKFNjZGBgYEi32v7f9O1PBt/vm0FcONjM6ctwWpidYeYxT0ZGmKKUmwGMKKqgnDnqG/6DFDOCGCBFL+WS/4s/mouiGCYGUoOiAFkxOhvDJFwm47US5maQZuKtJtozRAcPsQEOAJhodUET354dAAAAAElFTkSuQmCC"
     }
   ],
   "tilesets": [

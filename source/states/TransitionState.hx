@@ -1,5 +1,6 @@
 package states;
 
+import flixel.util.FlxTimer;
 import flixel.FlxG;
 import flixel.addons.transition.TransitionData;
 import flixel.util.FlxColor;
@@ -12,6 +13,9 @@ class TransitionState extends FlxTransitionableState
 		FlxTransitionableState.defaultTransIn = new TransitionData(FADE, FlxColor.BLACK, 0.6);
 		FlxTransitionableState.defaultTransOut = new TransitionData(FADE, FlxColor.BLACK, 0.6);
 		FlxG.autoPause = false;
-		FlxG.switchState(new MenuState());
+		FlxG.sound.music.stop();
+		new FlxTimer().start(2, function(_) {
+			FlxG.switchState(new MenuState());
+		});
     }
 }

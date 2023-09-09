@@ -4,7 +4,7 @@
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Deltarune : HaxeFlixel Edition" file="DeltaruneFlxTest" main="Main" version="0.0.1" company="HaxeFlixel" />
+	<app title="Deltarune : HaxeFlixelPort" file="Deltarune" main="Main" version="0.0.1" company="HaxeFlixel" />
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -30,10 +30,10 @@
 	<!-- _____________________________ Path Settings ____________________________ -->
 
 	<set name="BUILD_DIR" value="export"/>
-	<set name="BUILD_DIR" value="export/32Bits" if="32"/>
 	<set name="BUILD_DIR" value="export/debug" if="debug"/>
 	<set name="BUILD_DIR" value="export/final" if="final"/>
-	<set name="BUILD_DIR" value="export/final" if="32 & final"/>
+	<set name="BUILD_DIR" value="export/32x" if="32x"/>
+	<set name="BUILD_DIR" value="export/final-32x" if="(32x && final)"/>
 	<source path="source" />
 	<assets path="assets" />
 

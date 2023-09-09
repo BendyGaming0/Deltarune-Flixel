@@ -59,11 +59,10 @@ class Main extends Sprite
 	{
 		border = new ConsoleBorder();
 		addChild(border);
-		FlxSplash.nextState = states.TransitionState;
-		// "Game" is just a slighly modified version of FlxGame to let the console borders work
-		addChild(new Game(gamewidth, gameheight, FlxSplash, -1, 30, 30, false));
+		FlxSplash.nextState = states.IntroState;
+		addChild(new Game(gamewidth, gameheight, FlxSplash, 30, 30, false));
 		addChild(fps = new GameFps());
-		//Controls.addControllerToast();
+		Controls.addControllerToast();
 	}
 
 	public static var framerate(get, set):Float;

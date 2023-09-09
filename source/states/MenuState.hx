@@ -2,7 +2,6 @@ package states;
 
 import states.substates.Credits;
 import states.substates.Options;
-import openfl.display.TileContainer;
 import flixel.FlxSprite;
 import tools.PathGenerator;
 import flixel.addons.transition.FlxTransitionableState;
@@ -33,18 +32,25 @@ class MenuState extends FlxTransitionableState
     public static var instance:MenuState;
     public static var initialized:Bool = false;
 
+	public static function initialize():Bool
+	{
+		if (initialized)
+			return false;
+
+		FlxG.scaleMode = new CustomScaleMode();
+		FlxG.console.registerFunction('switchBorderIdTo', Main.border.switchToId);
+		FlxG.console.registerFunction('switchBorderTo', Main.border.switchTo);
+		Main.border.switchTo();
+		FlxG.save.bind('global', 'BendyGaming0/Deltarune');
+		Options.initialize();
+		initialized = true;
+
+		return true;
+	}
+
     override public function create()
     {
-		if (!initialized)
-        {
-            FlxG.scaleMode = new CustomScaleMode();
-			FlxG.console.registerFunction('switchBorderIdTo', Main.border.switchToId);
-			FlxG.console.registerFunction('switchBorderTo', Main.border.switchTo);
-			Main.border.switchTo();
-            FlxG.save.bind('global', 'BendyGaming0/Deltarune');
-            Options.initialize();
-			initialized = true;
-        }
+		MenuState.initialize();
 
         FlxG.sound.playMusic(PathGenerator.getMusic('menu'), 0.8, true);
 
@@ -67,7 +73,7 @@ class MenuState extends FlxTransitionableState
         //#if shaders_supported
         bgShader = new WiggleEffect();
 
-        var text:Array<String> = sys.io.File.getContent(Sys.getCwd() + '/assets/data/TitleScreen.txt').split('\n');
+        var text:Array<String> = sys.io.File.getContent(Sys.getCwd() + '/assets/data/shader_data/title_screen_background.txt').split('\n');
 
 		bgShader.waveAmplitude = Std.parseFloat(text[0]) / 5;
 		bgShader.waveFrequency = Std.parseFloat(text[1]) / 2;

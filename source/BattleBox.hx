@@ -8,29 +8,32 @@ import flixel.FlxObject;
 
 class BattleBox extends FlxObject
 {
-	var tlCorner:Point<Float>;
-	var blCorner:Point<Float>;
-	var trCorner:Point<Float>;
-	var brCorner:Point<Float>;
+	public var showMiddle:Bool = false;
+	public var tlCorner:Point<Float> = new Point<Float>(0, 0, 0);
+	public var blCorner:Point<Float> = new Point<Float>(0, 0, 0);
+	public var trCorner:Point<Float> = new Point<Float>(0, 0, 0);
+	public var brCorner:Point<Float> = new Point<Float>(0, 0, 0);
 
-	var fillColor:FlxColor = 0x000000;
-    var lineColor:FlxColor = 0x00EE11;
+	public var middlePoint(default, null):Point<Float> = new Point<Float>(0, 0, 0);
+
+	public var fillColor:FlxColor = 0x000000;
+	public var lineColor:FlxColor = 0x00EE11;
 
     public function new()
     {
         super(0, 0, 1, 1);
-		tlCorner.x = blCorner.x = FlxG.width * 0.3;
-		trCorner.x = brCorner.x = FlxG.width * 0.7;
-		tlCorner.y = trCorner.y = FlxG.height * 0.3;
-		blCorner.y = brCorner.y = FlxG.height * 0.3;
+		tlCorner.x = blCorner.x = (FlxG.width * 0.5) - 100;
+		trCorner.x = brCorner.x = (FlxG.width * 0.5) + 100;
+		tlCorner.y = trCorner.y = (FlxG.height * 0.5) - 100;
+		blCorner.y = brCorner.y = (FlxG.height * 0.5) + 100;
     }
 
     public function resetBox()
-    {
-		tlCorner.x = blCorner.x = FlxG.width * 0.3;
-		trCorner.x = brCorner.x = FlxG.width * 0.7;
-		tlCorner.y = trCorner.y = FlxG.height * 0.3;
-		blCorner.y = brCorner.y = FlxG.height * 0.3;
+	{
+		tlCorner.x = blCorner.x = (FlxG.width * 0.5) - 100;
+		trCorner.x = brCorner.x = (FlxG.width * 0.5) + 100;
+		tlCorner.y = trCorner.y = (FlxG.height * 0.5) - 100;
+		blCorner.y = brCorner.y = (FlxG.height * 0.5) + 100;
     }
 
     override public function draw()
@@ -40,13 +43,26 @@ class BattleBox extends FlxObject
         
         gfx.moveTo(tlCorner.x, tlCorner.y);
         gfx.beginFill(fillColor);
-		gfx.lineStyle(2, lineColor, 1);
+		gfx.lineStyle(4, lineColor, 1, false, NORMAL, SQUARE, MITER);
 		gfx.lineTo(blCorner.x, blCorner.y);
 		gfx.lineTo(brCorner.x, brCorner.y);
 		gfx.lineTo(trCorner.x, trCorner.y);
 		gfx.lineTo(tlCorner.x, tlCorner.y);
         gfx.endFill();
 
+		middlePoint = Point.findMiddle([tlCorner, trCorner, blCorner, brCorner]);
+		
+		if (showMiddle)
+		{
+			gfx.moveTo(middlePoint.x - 2, middlePoint.y - 2);
+			gfx.beginFill(0xFFFFFF);
+			gfx.lineStyle();
+			gfx.lineTo(middlePoint.x - 2, middlePoint.y + 2);
+			gfx.lineTo(middlePoint.x + 2, middlePoint.y + 2);
+			gfx.lineTo(middlePoint.x + 2, middlePoint.y - 2);
+			gfx.lineTo(middlePoint.x - 2, middlePoint.y - 2);
+			gfx.endFill();
+		}
 		//var avrg = Point.multFloatNum(Point.addFloat(Point.addFloat(blCorner, brCorner), Point.addFloat(trCorner, tlCorner)), 0.25);
 
 		endDrawDebug(camera);
@@ -56,6 +72,7 @@ class BattleBox extends FlxObject
 /*
  * simillar to a glsl vec3,
  * three properties with multiple accessors
+ * tried my best to make it work with math functions
  */
 class Point<T>
 {
@@ -71,9 +88,52 @@ class Point<T>
 	function set_r(value:T) return x = value;
 	function set_g(value:T) return y = value;
 	function set_b(value:T) return z = value;
-    public function new () {}
 
-    @:op(A + B) private static inline function add(lhs:Point<Int>, rhs:Point<Int>):Point<Int>
+    public function new (?x:T, ?y:T, ?z:T)
+	{
+		if (x != null) {this.x = x;}
+		if (y != null) {this.y = y;}
+		if (z != null) {this.z = z;}
+	}
+
+	public static inline function distance(p:Point<Float>, point:Point<Float>)
+	{
+		return Math.sqrt(Math.pow((p.x - point.x), 2) + Math.pow((p.y - point.y), 2) + Math.pow((p.z - point.z), 2));
+	}
+
+	public static inline function distance2D(p:Point<Float>, point:Point<Float>)
+	{
+		return Math.sqrt(Math.pow((p.x - point.x), 2) + Math.pow((p.y - point.y), 2));
+	}
+
+	public static inline function distanceMouse(p:Point<Float>)
+	{
+		return Math.sqrt(Math.pow((p.x - FlxG.mouse.screenX), 2) + Math.pow((p.y - FlxG.mouse.screenY), 2));
+	}
+
+	public static inline function findMiddle(points:Array<Point<Float>>)
+	{
+		var totalPoint = new Point<Float>();
+
+		totalPoint.x = 0;
+		totalPoint.y = 0;
+		totalPoint.z = 0;
+
+		for (pnt in points)
+		{
+			totalPoint.x += pnt.x;
+			totalPoint.y += pnt.y;
+			totalPoint.z += pnt.z;
+		}
+
+		totalPoint.x /= points.length;
+		totalPoint.y /= points.length;
+		totalPoint.z /= points.length;
+
+		return totalPoint;
+	}
+
+    /*@:op(A + B) private static inline function add(lhs:Point<Int>, rhs:Point<Int>):Point<Int>
     {
         var point:Point<Int>;
 		point.x = lhs.x + rhs.x;
@@ -153,5 +213,5 @@ class Point<T>
 		point.y = lhs.y * rhs;
 		point.z = lhs.z * rhs;
 		return point;
-	}
+	}*/
 }

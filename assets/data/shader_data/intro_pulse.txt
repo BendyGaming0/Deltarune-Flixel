@@ -1,0 +1,8 @@
+0.2
+0.267
+6
+0.67
+size (float)
+power
+count (int)
+speed (float)

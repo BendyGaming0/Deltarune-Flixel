@@ -24,6 +24,7 @@ class PlayState extends FlxTransitionableState
 
 	public static var instance:PlayState;
 	public var interactables:FlxTypedGroup<InteractableSprite>;
+	public var collision_layer:FlxTypedGroup<CollisionObject>;
 	public var player:Player;
 	public var dielouge:DeltaDialougeBox;
 
@@ -104,13 +105,14 @@ class PlayState extends FlxTransitionableState
 		var leframes:FlxFramesCollection;
 
 		background = map.loadTilemap("assets/images/cyberassetsbackgounds.png", "background");
+		background.solid = false;
 
-		for (x in 0...6)
+		/*for (x in 0...6)
 		{
 			try{
 				background.setTileProperties(x, NONE);}
 			catch (e) {}
-		}
+		}*/
 
 		add(background);
 
@@ -129,11 +131,12 @@ class PlayState extends FlxTransitionableState
 		}
 
 		walls = map.loadTilemap(leframes, "walls");
+		walls.solid = false;
 
 		@:privateAccess
 		trace('total tile types:'+walls._tileObjects.length);
 
-		for (y in 0...3)
+		/*for (y in 0...3)
 		{
 			for (x in 0...8)
 			{
@@ -154,14 +157,14 @@ class PlayState extends FlxTransitionableState
 		}
 
 		walls.setTileProperties(37, ANY);
-		walls.setTileProperties(45, NONE);
+		walls.setTileProperties(45, NONE);*/
 
 		add(walls);
 
 		walls.follow();
 
 		dialougeCamera = new FlxCamera();
-		dialougeCamera.y = -24;
+		//dialougeCamera.y = -24;
 		dialougeCamera.bgColor = 0x00000000; // transparent
 		FlxG.cameras.add(dialougeCamera, false);
 
@@ -175,6 +178,7 @@ class PlayState extends FlxTransitionableState
 		player.updateHitbox();
 
 		interactables = new FlxTypedGroup<InteractableSprite>();
+		collision_layer = new FlxTypedGroup<CollisionObject>();
 
 		map.loadEntities(function (entity:EntityData)
 		{
@@ -232,9 +236,22 @@ class PlayState extends FlxTransitionableState
 				}
 				#end
 			}
-		});
+		}, "entities");
+
+		map.loadEntities(function(entity:EntityData)
+		{
+			switch (entity.name)
+			{
+				case "collision":
+					var collider = new CollisionObject(entity.x, entity.y, entity.width, entity.height);
+					collision_layer.add(collider);
+				default:
+					trace('idk what that is');
+			}
+		}, "collision");
 
 		add(interactables);
+		add(collision_layer);
 
 		add(player);
 			add(player.collider);
@@ -318,10 +335,10 @@ class PlayState extends FlxTransitionableState
 		if (player.getScreenPosition().y > 240)
 		{
 			// lower half
-			dialougeCamera.y = -24;
+			dialougeCamera.y = 12; //??
 		} else {
 			// upper half
-			dialougeCamera.y = -300;
+			dialougeCamera.y = 300; //??
 		}
 		if (FlxG.keys.pressed.ESCAPE){
 			quitTimer += elapsed;
@@ -340,7 +357,7 @@ class PlayState extends FlxTransitionableState
 
 		super.update(elapsed);
 
-		FlxG.collide(player.collider, walls);
+		FlxG.collide(player.collider, collision_layer);
 		FlxG.collide(player.collider, interactables);
 
 		//interactables check

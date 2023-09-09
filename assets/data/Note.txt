@@ -1,1 +1,1 @@
-The first and last item in tilesets dont work at all, they act as empty tiles
+The first and last item in tilesets dont work at all, they act as empty tiles. this is a flixel bug so not much i can do about that.

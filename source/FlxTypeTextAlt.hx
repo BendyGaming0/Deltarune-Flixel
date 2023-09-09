@@ -14,6 +14,7 @@ class TypeSound extends Sound {}
 
 /**
  * Modified version of FlxTypeText for more complex dialouge
+ * to be rewritten to work a lot more like actual deltarune
  */
 class FlxTypeTextAlt extends FlxText
 {

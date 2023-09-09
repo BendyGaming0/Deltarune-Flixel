@@ -109,7 +109,7 @@ class Options extends FlxSubState
 		
 		new FlxTimer().start(0.5, postCreate);
 
-		var showfpsopt = new Option(0, 'FPS', generalData.fps, 'fps', 'int', {
+		var showfpsopt = new Option(options.length, 'FPS', generalData.fps, 'fps', 'int', {
 			change: 5,
 			min: 25,
 			max: 240,
@@ -121,9 +121,19 @@ class Options extends FlxSubState
 		options.push(showfpsopt);
 		add(showfpsopt);
 
-		var showfpsopt = new Option(1, 'Show Fps?', generalData.show_fps, 'show_fps', 'bool', {current: false});
+		var showfpsopt = new Option(options.length, 'Show Fps?', generalData.show_fps, 'show_fps', 'bool', {current: false});
 		options.push(showfpsopt);
 		add(showfpsopt);
+
+		if (Main.args.contains('debugmode')) {
+			var battleBox = new Option(options.length, 'Test - Battle Box', generalData.show_fps, 'show_fps', 'none', {current: false,
+				change_func: function(value, change)
+				{
+					FlxG.switchState(new editors.BattleBoxTestState());
+				}});
+			options.push(battleBox);
+			add(battleBox);
+		}
 
 		bgColor = 0x00000000;
 		changeIndex();
@@ -216,7 +226,7 @@ class Option extends FlxText
 			case 'float':
 				trace('cant select float');
 			case 'bool':
-				value = !value;
+				if (value == true) {value = false;} else {value = true;}
 				if (properties.current) {trace('oops');} else {Options.setGeneralData(field, value);}
 			default:
 				trace('invalid');
