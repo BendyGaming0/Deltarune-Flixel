@@ -15,7 +15,7 @@
 
 	<config:android minimum-sdk-version="21" />
 	<config:android target-sdk-version="30" />
-	<config:android build-tools-version="30.0.2" />
+	<config:android build-tools-version="30.0.3" />
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
