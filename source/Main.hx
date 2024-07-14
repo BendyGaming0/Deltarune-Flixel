@@ -1,35 +1,46 @@
 package;
 
+import deltarune.assets.SysAssetSystem;
+import deltarune.assets.OpenFLAssetSystem;
+import deltarune.assets.GameAssets;
+import deltarune.GameFps;
+import deltarune.Game;
+import deltarune.ConsoleBorder;
+import deltarune.Controls;
+
 import openfl.Lib;
 import openfl.events.Event;
-import openfl.display.FPS;
 import openfl.display.Sprite;
 
-import flixel.FlxGame;
 import flixel.system.FlxSplash;
 import flixel.math.FlxMath;
 
 class Main extends Sprite
 {
-	/**
-	 * arguments passed through the command line
-	 */
-	public static var args:Array<String>; 
 	public static var gamewidth:Int = 640;
 	public static var gameheight:Int = 480;
 
-	public static var fps:GameFps;
-	public static var border:ConsoleBorder;
+	public static var framerate(get, set):Float;
+
+	public static function set_framerate(value:Float)
+		return openfl.Lib.current.stage.frameRate = value;
+
+	public static function get_framerate()
+		return openfl.Lib.current.stage.frameRate;
+	
 	public static var screenRatio:ScreenRatio = FOUR_THREE;
 
 	//event listener stuff was made by other people
 	public function new()
 	{
-		args = Sys.args();
-		for (arg in args)
-		{
-			trace('command line argument:' + arg);
-		}
+		#if sys
+		Game.consoleArguments = Sys.args();
+		Game.enviromentVariables = Sys.environment();
+		#else
+		Game.consoleArguments = [];
+		Game.enviromentVariables = new Map<String, String>();
+		#end
+
 
 		super();
 
@@ -57,33 +68,22 @@ class Main extends Sprite
 
 	public function setupGame()
 	{
-		border = new ConsoleBorder();
-		addChild(border);
-		FlxSplash.nextState = states.IntroState;
-		addChild(new Game(gamewidth, gameheight, FlxSplash, 30, 30, false));
-		addChild(fps = new GameFps());
+		if (!Game.consoleArguments.contains('noopenflassets'))
+			GameAssets.assetSystems.push(new OpenFLAssetSystem('assets'));
+		
+		#if sys
+		GameAssets.assetSystems.push(new SysAssetSystem(Sys.getCwd() + '/assets')); //higher priority, as it includes more things
+		#end
+		
+		addChild(Game.border = new ConsoleBorder());
+		addChild(new Game(gamewidth, gameheight, () -> new FlxSplash(() -> new deltarune.game.states.IntroState()), 30, 30, false));
+		addChild(Game.framerateDisplay = new GameFps());
 		Controls.addControllerToast();
 	}
 
-	public static var framerate(get, set):Float;
-
-	public static function set_framerate(value:Float)
-		return openfl.Lib.current.stage.frameRate = value;
-
-	public static function get_framerate()
-		return openfl.Lib.current.stage.frameRate;
-
-	var skipNext:Bool = false;
 
 	function fixResize(e:Event)
 	{
-		if (skipNext)
-		{
-			skipNext = false;
-			return;
-		}
-
-		skipNext=true;
 		var curRatio = stage.stageWidth / stage.stageHeight;
 		var r4by3 = 4 / 3;
 		var r16by9 = 16 / 9;
@@ -99,17 +99,19 @@ class Main extends Sprite
 				screenRatio = FOUR_THREE;
 				newwidth = segSize * 4;
 				newheight = segSize * 3;
-				trace('4:3');
 			case 1: // 16:9
 				var segSize:Int = Math.ceil(Math.max(stage.stageWidth / 16, stage.stageHeight / 9));
 				screenRatio = SIXTEEN_NINE;
 				newwidth = segSize * 16;
 				newheight = segSize * 9;
-				trace('16:9');
 		}
 
 		if (!Lib.application.window.fullscreen)
+		{
+			stage.removeEventListener(Event.RESIZE, fixResize);
 			Lib.application.window.resize(newwidth, newheight);
+			stage.addEventListener(Event.RESIZE, fixResize);
+		}
 	}
 }
 

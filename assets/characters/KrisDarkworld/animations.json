@@ -11,49 +11,49 @@
         {
             "name": "down",
             "indicies": [0],
-            "framerate": 8,
+            "framerate": 10,
             "looped": false
         },
         {
             "name": "walk-down",
             "indicies": [1,0,2,0],
-            "framerate": 4,
+            "framerate": 5,
             "looped": false
         },
         {
             "name": "left",
             "indicies": [3],
-            "framerate": 8,
+            "framerate": 10,
             "looped": false
         },
         {
             "name": "walk-left",
             "indicies": [4,3,5,3],
-            "framerate": 4,
+            "framerate": 5,
             "looped": false
         },
         {
             "name": "up",
             "indicies": [6],
-            "framerate": 8,
+            "framerate": 10,
             "looped": false
         },
         {
             "name": "walk-up",
             "indicies": [7,6,8,6],
-            "framerate": 4,
+            "framerate": 5,
             "looped": false
         },
         {
             "name": "right",
             "indicies": [9],
-            "framerate": 8,
+            "framerate": 10,
             "looped": false
         },
         {
             "name": "walk-right",
             "indicies": [10,9,11,9],
-            "framerate": 4,
+            "framerate": 5,
             "looped": false
         }
     ] 

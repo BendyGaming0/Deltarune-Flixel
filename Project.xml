@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<project xmlns="http://lime.software/project/1.0.2" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://lime.software/project/1.0.2 http://lime.software/xsd/project-1.0.2.xsd">
+<project xmlns="https://lime.software/project/1.0.2" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://lime.software/project/1.0.2 https://lime.software/xsd/project-1.0.2.xsd">
 
 	<!-- _________________________ Application Settings _________________________ -->
 
@@ -12,6 +12,10 @@
 
 	<!--Minimum without FLX_NO_GAMEPAD: 11.8, without FLX_NO_NATIVE_CURSOR: 11.2-->
 	<set name="SWF_VERSION" value="11.8" />
+
+	<config:android minimum-sdk-version="21" />
+	<config:android target-sdk-version="30" />
+	<config:android build-tools-version="30.0.2" />
 
 	<!-- ____________________________ Window Settings ___________________________ -->
 
@@ -32,8 +36,12 @@
 	<set name="BUILD_DIR" value="export"/>
 	<set name="BUILD_DIR" value="export/debug" if="debug"/>
 	<set name="BUILD_DIR" value="export/final" if="final"/>
+	
+	<!--<32x builds for windows systems>-->
 	<set name="BUILD_DIR" value="export/32x" if="32x"/>
+	<set name="BUILD_DIR" value="export/debug-32x" if="(32x && debug)"/>
 	<set name="BUILD_DIR" value="export/final-32x" if="(32x && final)"/>
+
 	<source path="source" />
 	<assets path="assets" />
 
@@ -54,7 +62,13 @@
 	<haxedef name="hscriptPos"/>
 	<haxelib name="hscript"/>
 
+	<!--Discord RPC-->
+	<haxelib name="discord_rpc" if="desktop"/>
+
 	<!-- ______________________________ Haxedefines _____________________________ -->
+
+	<!--Disable the legacy health system-->
+	<haxedef name="FLX_NO_HEALTH"/>
 
 	<!--Enable the Flixel core recording system-->
 	<!--<haxedef name="FLX_RECORD" />-->

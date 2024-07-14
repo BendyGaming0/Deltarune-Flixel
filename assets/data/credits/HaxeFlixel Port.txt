@@ -1,0 +1,11 @@
+%y%DELTARUNE HaxeFlixel Port%y%
+created by BendyGaming0
+
+Programmer and Main Artist
+BendyGaming0
+
+Shader Code and Engine
+HaxeFlixel Team
+
+Sprite Rips
+The Spriter's Resource

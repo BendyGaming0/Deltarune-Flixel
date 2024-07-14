@@ -16,8 +16,8 @@
   "defaultExportMode": ".json",
   "compactExport": false,
   "externalScript": "",
-  "playCommand": "PlayCommand.bat",
-  "entityTags": ["warp data", "required", "essential", "objects", "collision"],
+  "playCommand": "cd ../.. & cd",
+  "entityTags": ["Warping", "Required", "Objects", "Collision"],
   "layers": [
     {
       "definition": "entity",
@@ -58,7 +58,7 @@
     {
       "exportID": "07641890",
       "name": "player",
-      "limit": -1,
+      "limit": 1,
       "size": {"x": 16, "y": 16},
       "origin": {"x": 0, "y": 0},
       "originAnchored": true,
@@ -88,7 +88,7 @@
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
-      "tags": ["required"],
+      "tags": ["Required"],
       "values": [],
       "texture": "../images/gfRpg.png",
       "textureImage": "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABUAAAAeCAYAAADD0FVVAAAAAXNSR0IArs4c6QAAAnBJREFUSEu1lU9IFUEcx39L8VR6L8k/T5Quph7CTlKiYCBCCr0iSIgOXgQvIqSeFIR3eBDUKRXEi9ClQwgKkk/QIAIDRaNT0kHTiyj+jVJRH8bGd3q/Yd7uzO4qOJednf3NZ76/f7MWXcKwgjAfW4X2B3snkC14RkOA+MBE422Kz/wggNV100FaKDY+Ko1IJybXDojBznUd2AUFEICF5XXfyFRX3JQeqMYZUAayAYOxGQPvmPOT7Tg0/O4J9ZWaNvCFcsxYnZdC9gQxV2PrUqomAsDZ3f9FcL/AypirXhihugS93YjSt9SW2N9kH9K0FRbzqlARtZZsZ1SHVimXEZRBFQagM6/jVNDdQbtvhuSzsScRDAoIwJX5OVR6/aoAzi0OC/jBp02pKtJQLOa199oFeO3PGS3tHXvHFFCMz4clEqqrggtBGWwqq/rwhvwEz9RkubKvKsWuvKw9F3f/NF+sMTiQ++x6rO4ZjfzNc0HbruxT8suoiKsOrFV6XmhgpSil5/FO6jq6S3eyV6Xa7ye3qP/aV3qfGCCUFpT6QnMjYVpJFdFccoAoGiKEAGAeAMJ12k5RbazTG4oalcB0fTqBLnC6XgtPf3rX6U5WmaxPJAKKPzb1C5eh+MF0l1DIjQEbTyiU1GTX2MJ1qHBsVkGqzfzJfEbCtb8TgNlVJAytKVQvDouWRYJ4OIFY9/xDStXRkIRygnQwPsgfmk4aK+XL5MLQh7kVdnL8HW0+eUHoInRX8cQgxZ620NTvZaMg4wcAx3qr6dfLFeEVQzG/0VdOza8WjGAtFEC157mLnN2Fg3SKjVDTledcDwwNCjTZ/QN6+5MuqtSFZgAAAABJRU5ErkJggg=="
@@ -119,6 +119,44 @@
       "resizeableY": false,
       "rotatable": false,
       "rotationDegrees": 360,
+      "canFlipX": true,
+      "canFlipY": true,
+      "canSetColor": false,
+      "hasNodes": false,
+      "nodeLimit": 0,
+      "nodeDisplay": 0,
+      "nodeGhost": true,
+      "tags": ["Objects"],
+      "values": [
+        {"name": "dialouge", "definition": "String", "display": 2, "defaults": "_NULL", "maxLength": 0, "trimWhitespace": true}
+      ]
+    },
+    {
+      "exportID": "21800652",
+      "name": "invisible-sign",
+      "limit": -1,
+      "size": {"x": 10, "y": 10},
+      "origin": {"x": 0, "y": 0},
+      "originAnchored": true,
+      "shape": {
+        "label": "Rectangle",
+        "points": [
+          {"x": -1, "y": -1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": -1},
+          {"x": -1, "y": 1},
+          {"x": 1, "y": 1}
+        ]
+      },
+      "color": "#0091ffff",
+      "tileX": false,
+      "tileY": false,
+      "tileSize": {"x": 16, "y": 16},
+      "resizeableX": true,
+      "resizeableY": true,
+      "rotatable": false,
+      "rotationDegrees": 360,
       "canFlipX": false,
       "canFlipY": false,
       "canSetColor": false,
@@ -126,9 +164,9 @@
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
-      "tags": ["objects"],
+      "tags": ["Objects"],
       "values": [
-        {"name": "dialouge", "definition": "String", "display": 2, "defaults": "_NULL", "maxLength": 0, "trimWhitespace": true}
+        {"name": "dialouge", "definition": "String", "display": 0, "defaults": "", "maxLength": 0, "trimWhitespace": true}
       ]
     },
     {
@@ -157,14 +195,14 @@
       "resizeableY": false,
       "rotatable": false,
       "rotationDegrees": 360,
-      "canFlipX": false,
-      "canFlipY": false,
+      "canFlipX": true,
+      "canFlipY": true,
       "canSetColor": false,
       "hasNodes": false,
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
-      "tags": ["essential", "objects"],
+      "tags": ["Objects"],
       "values": []
     },
     {
@@ -189,8 +227,8 @@
       "tileX": false,
       "tileY": false,
       "tileSize": {"x": 16, "y": 16},
-      "resizeableX": false,
-      "resizeableY": false,
+      "resizeableX": true,
+      "resizeableY": true,
       "rotatable": false,
       "rotationDegrees": 360,
       "canFlipX": false,
@@ -200,12 +238,10 @@
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
-      "tags": ["warp data"],
+      "tags": ["Warping"],
       "values": [
         {"name": "entranceTag", "definition": "String", "display": 2, "defaults": "null", "maxLength": 0, "trimWhitespace": true},
         {"name": "targetRoom", "definition": "String", "display": 1, "defaults": "001", "maxLength": 0, "trimWhitespace": true},
-        {"name": "tiledHeight", "definition": "Integer", "display": 0, "defaults": 1, "bounded": true, "min": 1, "max": 16},
-        {"name": "tiledWidth", "definition": "Integer", "display": 0, "defaults": 1, "bounded": true, "min": 1, "max": 16},
         {"name": "xOffset", "definition": "Integer", "display": 0, "defaults": 0, "bounded": false, "min": -1, "max": 1},
         {"name": "yOffset", "definition": "Integer", "display": 0, "defaults": 0, "bounded": false, "min": -1, "max": 1}
       ]
@@ -232,8 +268,8 @@
       "tileX": false,
       "tileY": false,
       "tileSize": {"x": 16, "y": 16},
-      "resizeableX": false,
-      "resizeableY": false,
+      "resizeableX": true,
+      "resizeableY": true,
       "rotatable": false,
       "rotationDegrees": 360,
       "canFlipX": false,
@@ -243,51 +279,11 @@
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
-      "tags": ["warp data"],
+      "tags": ["Warping"],
       "values": [
         {"name": "entranceTag", "definition": "String", "display": 1, "defaults": "null", "maxLength": 0, "trimWhitespace": true},
         {"name": "useXoffset", "definition": "Boolean", "display": 0, "defaults": true},
         {"name": "useYoffset", "definition": "Boolean", "display": 0, "defaults": true}
-      ]
-    },
-    {
-      "exportID": "21800652",
-      "name": "invisible-sign",
-      "limit": -1,
-      "size": {"x": 10, "y": 10},
-      "origin": {"x": 0, "y": 0},
-      "originAnchored": true,
-      "shape": {
-        "label": "Rectangle",
-        "points": [
-          {"x": -1, "y": -1},
-          {"x": 1, "y": -1},
-          {"x": -1, "y": 1},
-          {"x": 1, "y": -1},
-          {"x": -1, "y": 1},
-          {"x": 1, "y": 1}
-        ]
-      },
-      "color": "#0091ffff",
-      "tileX": false,
-      "tileY": false,
-      "tileSize": {"x": 16, "y": 16},
-      "resizeableX": false,
-      "resizeableY": false,
-      "rotatable": false,
-      "rotationDegrees": 360,
-      "canFlipX": false,
-      "canFlipY": false,
-      "canSetColor": false,
-      "hasNodes": false,
-      "nodeLimit": 0,
-      "nodeDisplay": 0,
-      "nodeGhost": true,
-      "tags": ["essential"],
-      "values": [
-        {"name": "dialouge", "definition": "String", "display": 0, "defaults": "", "maxLength": 0, "trimWhitespace": true},
-        {"name": "width", "definition": "Integer", "display": 0, "defaults": 1, "bounded": false, "min": 1, "max": 16},
-        {"name": "height", "definition": "Integer", "display": 0, "defaults": 1, "bounded": false, "min": 1, "max": 16}
       ]
     },
     {
@@ -323,7 +319,7 @@
       "nodeLimit": 0,
       "nodeDisplay": 0,
       "nodeGhost": true,
-      "tags": ["essential", "collision"],
+      "tags": ["Collision"],
       "values": [
         {"name": "active", "definition": "Boolean", "display": 0, "defaults": true}
       ],

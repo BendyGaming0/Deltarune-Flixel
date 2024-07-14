@@ -17,7 +17,7 @@
       "gridCellsY": 108,
       "entities": [
         {"name": "player", "id": 0, "_eid": "07641890", "x": 210, "y": 530, "originX": 0, "originY": 0},
-        {"name": "save", "id": 1, "_eid": "14346585", "x": 710, "y": 800, "originX": 0, "originY": 0},
+        {"name": "save", "id": 1, "_eid": "14346585", "x": 710, "y": 800, "originX": 0, "originY": 0, "flippedX": false, "flippedY": false},
         {
           "name": "sign",
           "id": 2,
@@ -26,6 +26,8 @@
           "y": 580,
           "originX": 0,
           "originY": 0,
+          "flippedX": false,
+          "flippedY": false,
           "values": {"dialouge": "_LEFT"}
         },
         {
@@ -36,6 +38,8 @@
           "y": 380,
           "originX": 0,
           "originY": 0,
+          "flippedX": false,
+          "flippedY": false,
           "values": {"dialouge": "_RIGHT"}
         },
         {
@@ -44,9 +48,11 @@
           "_eid": "21760704",
           "x": 1240,
           "y": 400,
+          "width": 10,
+          "height": 120,
           "originX": 0,
           "originY": 0,
-          "values": {"entranceTag": "left", "targetRoom": "002", "tiledHeight": 12, "tiledWidth": 1, "xOffset": -1, "yOffset": 0}
+          "values": {"entranceTag": "left", "targetRoom": "002", "xOffset": -1, "yOffset": 0}
         },
         {
           "name": "warpEntrance",
@@ -54,6 +60,8 @@
           "_eid": "21765649",
           "x": 1200,
           "y": 400,
+          "width": 10,
+          "height": 120,
           "originX": 0,
           "originY": 0,
           "values": {"entranceTag": "right", "useXoffset": false, "useYoffset": true}

@@ -1,5 +1,5 @@
 package flixel.input.gamepad.mapping;
-/*
+
 import flixel.input.gamepad.mappings.FlxGamepadMapping;
 import flixel.input.gamepad.FlxGamepadInputID;
 import flixel.input.gamepad.id.PS3ID;
@@ -19,9 +19,9 @@ class PS3Mapping extends FlxGamepadMapping
 
 	override function initValues():Void
 	{
-		//leftStick = PS3ID.LEFT_ANALOG_STICK;
-		//rightStick = PS3ID.RIGHT_ANALOG_STICK;
-		supportsMotion = false;
+		leftStick = PS3ID.LEFT_ANALOG_STICK;
+		rightStick = PS3ID.RIGHT_ANALOG_STICK;
+		supportsMotion = true;
 		supportsPointer = false; //not sure...
 	}
 
@@ -38,10 +38,10 @@ class PS3Mapping extends FlxGamepadMapping
 			case PS3ID.START_BUTTON: START;
 			case PS3ID.LEFT_ANALOGUE_BUTTON: LEFT_STICK_CLICK;
 			case PS3ID.RIGHT_ANALOGUE_BUTTON: RIGHT_STICK_CLICK;
-			case PS3ID.L1_BUTTON: LEFT_SHOULDER;
-			case PS3ID.R1_BUTTON: RIGHT_SHOULDER;
-			case PS3ID.L2_BUTTON: LEFT_TRIGGER;
-			case PS3ID.R2_BUTTON: RIGHT_TRIGGER;
+			case PS3ID.L1: LEFT_SHOULDER;
+			case PS3ID.R1: RIGHT_SHOULDER;
+			case PS3ID.L2: LEFT_TRIGGER;
+			case PS3ID.R2: RIGHT_TRIGGER;
 			case PS3ID.DPAD_DOWN: DPAD_DOWN;
 			case PS3ID.DPAD_UP: DPAD_UP;
 			case PS3ID.DPAD_LEFT: DPAD_LEFT;
@@ -71,14 +71,14 @@ class PS3Mapping extends FlxGamepadMapping
 			case START: PS3ID.START_BUTTON;
 			case LEFT_STICK_CLICK: PS3ID.LEFT_ANALOGUE_BUTTON;
 			case RIGHT_STICK_CLICK: PS3ID.RIGHT_ANALOGUE_BUTTON;
-			case LEFT_SHOULDER: PS3ID.L1_BUTTON;
-			case RIGHT_SHOULDER: PS3ID.R1_BUTTON;
+			case LEFT_SHOULDER: PS3ID.L1;
+			case RIGHT_SHOULDER: PS3ID.R1;
 			case DPAD_UP: PS3ID.DPAD_UP;
 			case DPAD_DOWN: PS3ID.DPAD_DOWN;
 			case DPAD_LEFT: PS3ID.DPAD_LEFT;
 			case DPAD_RIGHT: PS3ID.DPAD_RIGHT;
-			case LEFT_TRIGGER: PS3ID.L2_BUTTON;
-			case RIGHT_TRIGGER: PS3ID.R2_BUTTON;/* uh oh, unsupported stuff
+			case LEFT_TRIGGER: PS3ID.L2;
+			case RIGHT_TRIGGER: PS3ID.R2;
 			case LEFT_STICK_DIGITAL_UP: PS3ID.LEFT_ANALOG_STICK.rawUp;
 			case LEFT_STICK_DIGITAL_DOWN: PS3ID.LEFT_ANALOG_STICK.rawDown;
 			case LEFT_STICK_DIGITAL_LEFT: PS3ID.LEFT_ANALOG_STICK.rawLeft;
@@ -87,10 +87,10 @@ class PS3Mapping extends FlxGamepadMapping
 			case RIGHT_STICK_DIGITAL_DOWN: PS3ID.RIGHT_ANALOG_STICK.rawDown;
 			case RIGHT_STICK_DIGITAL_LEFT: PS3ID.RIGHT_ANALOG_STICK.rawLeft;
 			case RIGHT_STICK_DIGITAL_RIGHT: PS3ID.RIGHT_ANALOG_STICK.rawRight;
-			#if FLX_JOYSTICK_API
+			/*#if FLX_JOYSTICK_API
 			case LEFT_TRIGGER_FAKE: LEFT_TRIGGER_FAKE;
 			case RIGHT_TRIGGER_FAKE: RIGHT_TRIGGER_FAKE;
-			#end
+			#end*/
 			default: -1;
 		}
 	}
@@ -131,4 +131,3 @@ class PS3Mapping extends FlxGamepadMapping
 	}
 	#end
 }
-*/

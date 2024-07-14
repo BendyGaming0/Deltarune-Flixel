@@ -1,2 +1,0 @@
-lime setup android
-pause
