@@ -1,5 +1,5 @@
 # DELTARUNE HaxeFlixel Port
-![logo](.\art\logo.png)
+![logo](/art/logo.png)
 
 A project that aims to port DELTARUNE Chapters 1 & 2 to the HaxeFlixel game engine while also providing a base for custom UT/DR content, currently a heavy work in progress missing many key features.
 
