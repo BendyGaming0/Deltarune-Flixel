@@ -26,8 +26,6 @@ class Main extends Sprite
 	public static function get_framerate()
 		return openfl.Lib.current.stage.frameRate;
 
-	public static var screenRatio:ScreenRatio = FOUR_THREE;
-
 	// event listener stuff was made by other people
 	public function new()
 	{
@@ -58,8 +56,6 @@ class Main extends Sprite
 			removeEventListener(Event.ADDED_TO_STAGE, init);
 		}
 
-		stage.addEventListener(Event.RESIZE, fixResize);
-
 		setupGame();
 	}
 
@@ -77,43 +73,4 @@ class Main extends Sprite
 		addChild(Game.framerateDisplay = new GameFps());
 		Controls.addControllerToast();
 	}
-
-	//remove this after integer scaling is added, or just disable window resizing
-	function fixResize(e:Event)
-	{
-		var curRatio = stage.stageWidth / stage.stageHeight;
-		var r4by3 = 4 / 3;
-		var r16by9 = 16 / 9;
-		var clipTo = FlxMath.bound(Math.round(FlxMath.remapToRange(curRatio, r4by3, r16by9, 0, 1)), 0, 1);
-
-		var newwidth = 640;
-		var newheight = 480;
-
-		switch (clipTo)
-		{
-			case 0: // 4:3
-				var segSize:Int = Math.ceil(Math.max(stage.stageWidth / 4, stage.stageHeight / 3));
-				screenRatio = FOUR_THREE;
-				newwidth = segSize * 4;
-				newheight = segSize * 3;
-			case 1: // 16:9
-				var segSize:Int = Math.ceil(Math.max(stage.stageWidth / 16, stage.stageHeight / 9));
-				screenRatio = SIXTEEN_NINE;
-				newwidth = segSize * 16;
-				newheight = segSize * 9;
-		}
-
-		if (!Lib.application.window.fullscreen)
-		{
-			stage.removeEventListener(Event.RESIZE, fixResize);
-			Lib.application.window.resize(newwidth, newheight);
-			stage.addEventListener(Event.RESIZE, fixResize);
-		}
-	}
-}
-
-enum ScreenRatio
-{
-	FOUR_THREE;
-	SIXTEEN_NINE;
 }

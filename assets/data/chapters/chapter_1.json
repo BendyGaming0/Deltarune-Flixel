@@ -10,10 +10,12 @@
         "iconSuffix": "ch1"
     },
     "saveCount": 3,
-    "saveSelectStyles": [{
-        "style": "program"
-    },
-    {
-        "style": "story"
-    }]
+    "saveSelectStyles": {
+        "program": {
+            
+        },
+        "story": {
+
+        }
+    }
 }

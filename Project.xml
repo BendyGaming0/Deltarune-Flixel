@@ -63,6 +63,7 @@
 	<haxelib name="hscript"/>
 
 	<haxelib name="hxopus"/>
+	<haxelib name="hxvlc"/>
 
 	<!--Discord RPC-->
 	<haxelib name="hxdiscord_rpc" if="desktop"/>

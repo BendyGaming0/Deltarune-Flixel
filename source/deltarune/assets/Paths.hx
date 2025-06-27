@@ -12,27 +12,28 @@ class Paths
 {
 	public static var currentMusic:String = null;
 
-	public static function getCharacterImage(char:String)
+	public static inline function getCharacterImage(char:String)
 		return 'characters/$char/spritesheet.png';
 
-	public static function getFont(font:String)
+	public static inline function getFont(font:String)
 		return 'fonts/$font.ttf';
 
-	public static function getOTFFont(font:String)
+	public static inline function getOTFFont(font:String)
 		return 'fonts/$font.otf';
 
-	public static function getImage(image:String, format:String = 'png')
+	public static inline function getImage(image:String, format:String = 'png')
 		return 'images/$image.$format';
 
-	public static function getDialogue(file:String)
+	public static inline function getDialogue(file:String)
 		return 'data/dialogue/$file.json';
 
-	public static function getMusic(file:String)
+	public static inline function getMusic(file:String)
 	{
 		currentMusic = file;
 		return 'music/$file';
 	}
 
+	//why does this exist?
 	public static inline function getPortrait(character:String)
 		return 'images/dialogue/$character.png';
 
@@ -62,6 +63,7 @@ class Paths
 		return json;
 	}
 
+	//note: this will be removed along with all things relating to the ogmo editor
 	/**
 	 * [Description]
 	 * @param ogmopath the path according to ogmo editor eg: ../images/cyberassetsmini.png to C:/gamedir/assets/images/cyberassetsmini.png
@@ -77,6 +79,7 @@ class Paths
 		return null;
 	}
 
+	//why does this exist?
 	public static function getTextSound(character:String = 'default')
 	{
 		var fixedPath = 'sounds/text_' + character.split('-')[0] + '.wav';

@@ -1,10 +1,9 @@
 package deltarune;
 
 import openfl.display.Bitmap;
-import openfl.utils.Assets;
 import openfl.display.Sprite;
-
 import openfl.display.Tile;
+import openfl.utils.Assets;
 
 class ConsoleBorder extends Sprite
 {
@@ -59,7 +58,9 @@ class ConsoleBorder extends Sprite
     override function __enterFrame(delta:Int)
     {
         super.__enterFrame(delta);
-		bitmap.scaleX = bitmap.scaleY = Math.max(stage.stageWidth / 1920, stage.stageHeight / 1080);
+		//make this work properly once borders are seperated into their own images
+		var scale = Math.floor(Math.max(Math.max(stage.stageWidth / 960, stage.stageHeight / 540), 1)) / 2;
+		bitmap.scaleX = bitmap.scaleY = scale;
 		bitmap.x = (stage.stageWidth - (1924 * bitmap.scaleX)) / 2;
 		bitmap.y = (stage.stageHeight - (1084 * bitmap.scaleY)) / 2;
 

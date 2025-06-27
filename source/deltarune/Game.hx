@@ -3,13 +3,15 @@ package deltarune;
 import deltarune.assets.GameAssets;
 import deltarune.assets.OpenFLAssetSystem;
 import deltarune.assets.SysAssetSystem;
+import deltarune.data.Chapter;
 import deltarune.game.states.substates.Options;
-import deltarune.tools.CustomScaleMode;
+import deltarune.tools.FullscreenControl;
 import deltarune.tools.LocalSave;
 import flixel.FlxG;
 import flixel.FlxGame;
 import flixel.FlxObject;
 import flixel.system.debug.log.LogStyle;
+import flixel.system.scaleModes.PixelPerfectScaleMode;
 import flixel.tile.FlxTilemap;
 import flixel.util.typeLimit.NextState.InitialState;
 
@@ -24,6 +26,8 @@ class Game extends FlxGame
 	public static var globalSave:LocalSave;
 	public static var chapterSave:LocalSave;
 
+	public static var chapter:Chapter;
+
 	public static var framerateDisplay:GameFps;
 	public static var border:ConsoleBorder;
 
@@ -32,7 +36,9 @@ class Game extends FlxGame
 		if (initialized)
 			return;
 
-		FlxG.scaleMode = new CustomScaleMode();
+		FullscreenControl.init();
+
+		FlxG.scaleMode = new PixelPerfectScaleMode();
 
 		Controls.remapExtendedControllers();
 

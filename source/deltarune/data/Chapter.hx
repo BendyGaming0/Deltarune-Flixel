@@ -12,10 +12,24 @@ class Chapter
 
 	public var previousChapter:String;
 
+	public var rawDat:ChapterFile;
+
 	public var assetsSystems:Array<IAssetSystem> = [];
+	public var saveSelectStyles:Map<String, ChapterSaveSelectStyle> = [];
 
 	function get_id():String
-		return '$group:$chapterId';
+		return '$group;$chapterId';
+
+	public function new(file:ChapterFile)
+	{
+		chapterId = file.id;
+		group = file.group;
+		previousChapter = file.previousChapter ?? '';
+		for (style in Reflect.fields(file.saveStyles)) {
+			saveSelectStyles.set(style, Reflect.field(file.saveStyles, style));
+		}
+		rawDat = file;
+	}
 }
 
 typedef ChapterFile =
@@ -37,8 +51,7 @@ typedef ChapterFile =
 			var ?bgScale:Float;
 		};
 	var ?saveCount:Int; // defaults to 1, 0 is no save, -1 is unlimited
-	var ?saveSelect:ChapterSaveSelectStyle;
-	var ?extraSaveStyles:Dynamic; // Map<String, ChapterSaveSelectStyle>
+	var ?saveStyles:Dynamic; // Map<String, ChapterSaveSelectStyle>
 }
 
 typedef ChapterSaveSelectStyle =

@@ -161,7 +161,7 @@ class ChapterSelectState extends State
 				#end
 			}
 			else if (!isChapterLocked(currentSelection))
-				FlxG.switchState(() -> new TransitionState());
+				FlxG.switchState(() -> new TransitionState(() -> new SaveSelectState()));
 		}
 
 		super.update(elapsed);

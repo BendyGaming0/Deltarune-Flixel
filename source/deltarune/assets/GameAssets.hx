@@ -17,8 +17,12 @@ class GameAssets
 		#if cpp "opus", #end
 		"wav" ]; // missing .flac support...
 
-	public static final supportedImage:Array<String> = []; // to-do, maybe write haxe decoder for QOI
+	public static final supportedImage:Array<String> = [
+		"png",
+		"bmp"
+	]; // to-do, maybe write haxe decoder for QOI
 
+	//probably remove this and replace with automatic checks in order of audio quality (wav, opus/ogg-opus, ogg-vorbis, mp3)
 	public static inline var MUSIC_EXT:String = #if html5 'mp3' #else 'ogg' #end;
 
 	public static var cachedBitmapFonts:Map<String, FlxBitmapFont> = [];
