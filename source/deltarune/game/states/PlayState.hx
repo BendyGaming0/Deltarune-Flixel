@@ -338,9 +338,6 @@ class PlayState extends State
 
 	override public function update(elapsed:Float)
 	{
-		if (FlxG.keys.justPressed.F11)
-			FlxG.fullscreen = !FlxG.fullscreen;
-
 		if (player.getScreenPosition().y > 240)
 		{
 			// lower half

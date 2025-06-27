@@ -6,7 +6,6 @@ import deltarune.game.State;
 import deltarune.game.states.substates.Credits;
 import deltarune.game.states.substates.Options;
 import deltarune.shaders.WiggleEffect;
-import deltarune.tools.CustomScaleMode;
 import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.addons.transition.FlxTransitionableState;
@@ -160,8 +159,6 @@ class MenuState extends State
 
 	override public function update(elapsed:Float)
 	{
-		if (FlxG.keys.justPressed.F11)
-			FlxG.fullscreen = !FlxG.fullscreen;
 		super.update(elapsed);
 		bgShader.shader.data.uTime.value[0] += elapsed;
 	}
