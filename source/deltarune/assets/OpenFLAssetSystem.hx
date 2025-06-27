@@ -1,26 +1,33 @@
 package deltarune.assets;
 
+import haxe.io.Bytes;
+import haxe.io.Path;
+import openfl.Assets;
 import openfl.display.BitmapData;
 import openfl.media.Sound;
 import openfl.text.Font;
-import openfl.Assets;
-
-import haxe.io.Bytes;
-import haxe.io.Path;
 
 using StringTools;
 
 class OpenFLAssetSystem implements IAssetSystem
 {
-    public var root:String = 'assets';
+	public var label:String;
+	public var root:String = 'assets';
 
-    public function new(?root:String) {
-        if (root != null) this.root = root;
-    }
+	public function new(label:String, ?root:String)
+	{
+		this.label = label;
 
-	public function list(directory:String, subdirectory:Bool = false):Array<String> {
+		if (root != null)
+			this.root = root;
+	}
+
+	public function list(directory:String, subdirectory:Bool = false):Array<String>
+	{
 		while (directory.endsWith('/') || directory.endsWith('\\'))
-			directory.substr(0, directory.length - 1);
+		{
+			directory = directory.substr(0, directory.length - 1);
+		}
 
 		var dirs:Array<String> = [];
 
@@ -34,33 +41,41 @@ class OpenFLAssetSystem implements IAssetSystem
 		return dirs;
 	}
 
-    public function exists(file:String):Bool {
-        return Assets.exists('assets/${file}', null);
-    }
+	public function exists(file:String):Bool
+	{
+		return Assets.exists('assets/${file}', null);
+	}
 
-    public function directoryExists(directory:String):Bool {
+	public function directoryExists(directory:String):Bool
+	{
 		for (fileName in Assets.list())
-            if (fileName.substr(root.length).startsWith(directory)) return true;
-        return false;
-    }
+			if (fileName.substr(root.length).startsWith(directory))
+				return true;
+		return false;
+	}
 
-    public function text(file:String):String {
-        return Assets.getText('assets/${file}');
-    }
+	public function text(file:String):String
+	{
+		return Assets.getText('assets/${file}');
+	}
 
-    public function bytes(file:String):Bytes {
-        return Assets.getBytes('assets/${file}');
-    }
+	public function bytes(file:String):Bytes
+	{
+		return Assets.getBytes('assets/${file}');
+	}
 
-    public function font(file:String):Font {
-        return Assets.getFont('assets/${file}');
-    }
+	public function font(file:String):Font
+	{
+		return Assets.getFont('assets/${file}');
+	}
 
-    public function bitmap(image:String):BitmapData {
-        return Assets.getBitmapData('assets/${image}');
-    }
+	public function bitmap(image:String):BitmapData
+	{
+		return Assets.getBitmapData('assets/${image}');
+	}
 
-    public function sound(sound:String):Sound {
-        return Assets.getSound('assets/${sound}');
-    }
+	public function sound(sound:String):Sound
+	{
+		return Assets.getSound('assets/${sound}');
+	}
 }

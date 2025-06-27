@@ -3,6 +3,6 @@
 6
 0.67
 size (float)
-power
+power (float)
 count (int)
 speed (float)

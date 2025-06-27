@@ -1,0 +1,13 @@
+{
+    "style": "darkworld",
+    "dialogue": [
+        {
+            "portrait": "none",
+            "text": "Hey! The exit is over to the left!",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        }
+    ]
+}

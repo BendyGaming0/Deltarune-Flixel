@@ -1,19 +1,17 @@
 package;
 
-import deltarune.assets.SysAssetSystem;
-import deltarune.assets.OpenFLAssetSystem;
-import deltarune.assets.GameAssets;
-import deltarune.GameFps;
-import deltarune.Game;
 import deltarune.ConsoleBorder;
 import deltarune.Controls;
-
-import openfl.Lib;
-import openfl.events.Event;
-import openfl.display.Sprite;
-
-import flixel.system.FlxSplash;
+import deltarune.Game;
+import deltarune.GameFps;
+import deltarune.assets.GameAssets;
+import deltarune.assets.OpenFLAssetSystem;
+import deltarune.assets.SysAssetSystem;
 import flixel.math.FlxMath;
+import flixel.system.FlxSplash;
+import openfl.Lib;
+import openfl.display.Sprite;
+import openfl.events.Event;
 
 class Main extends Sprite
 {
@@ -27,10 +25,10 @@ class Main extends Sprite
 
 	public static function get_framerate()
 		return openfl.Lib.current.stage.frameRate;
-	
+
 	public static var screenRatio:ScreenRatio = FOUR_THREE;
 
-	//event listener stuff was made by other people
+	// event listener stuff was made by other people
 	public function new()
 	{
 		#if sys
@@ -40,7 +38,6 @@ class Main extends Sprite
 		Game.consoleArguments = [];
 		Game.enviromentVariables = new Map<String, String>();
 		#end
-
 
 		super();
 
@@ -69,19 +66,19 @@ class Main extends Sprite
 	public function setupGame()
 	{
 		if (!Game.consoleArguments.contains('noopenflassets'))
-			GameAssets.assetSystems.push(new OpenFLAssetSystem('assets'));
-		
+			GameAssets.assetSystems.push(new OpenFLAssetSystem('openfl', 'assets'));
+
 		#if sys
-		GameAssets.assetSystems.push(new SysAssetSystem(Sys.getCwd() + '/assets')); //higher priority, as it includes more things
+		GameAssets.assetSystems.push(new SysAssetSystem('default', Sys.getCwd() + '/assets')); // higher priority, as it includes more things by always being up to date
 		#end
-		
+
 		addChild(Game.border = new ConsoleBorder());
-		addChild(new Game(gamewidth, gameheight, () -> new FlxSplash(() -> new deltarune.game.states.IntroState()), 30, 30, false));
+		addChild(new Game(gamewidth, gameheight, () -> new deltarune.game.states.ChapterSelectState(), 30, 30, true));
 		addChild(Game.framerateDisplay = new GameFps());
 		Controls.addControllerToast();
 	}
 
-
+	//remove this after integer scaling is added, or just disable window resizing
 	function fixResize(e:Event)
 	{
 		var curRatio = stage.stageWidth / stage.stageHeight;
@@ -94,7 +91,7 @@ class Main extends Sprite
 
 		switch (clipTo)
 		{
-			case 0: //4:3
+			case 0: // 4:3
 				var segSize:Int = Math.ceil(Math.max(stage.stageWidth / 4, stage.stageHeight / 3));
 				screenRatio = FOUR_THREE;
 				newwidth = segSize * 4;

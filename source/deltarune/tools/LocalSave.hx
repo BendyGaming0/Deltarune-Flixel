@@ -1,20 +1,24 @@
 package deltarune.tools;
 
 import flixel.FlxG;
-import openfl.net.SharedObjectFlushStatus;
+import flixel.util.FlxSave;
+import haxe.Exception;
 import openfl.errors.Error;
 import openfl.net.SharedObject;
-import flixel.util.FlxSave;
+import openfl.net.SharedObjectFlushStatus;
 
-//variation of FlxSave that saves in the same directory as the application
-//do not use on html (duh)
+// variation of FlxSave that saves in the same directory as the application
+// do not use on html (duh)
 
 @:allow(flixel.util.LocalSharedObject)
 class LocalSave extends FlxSave
 {
-	public function new() {super();}
+	public function new()
+	{
+		super();
+	}
 
-	override public function bind(name:String, ?path:String):Bool
+	override public function bind(name:String, ?path:String, ?backupParser:(String, Exception) -> Null<Any>):Bool
 	{
 		destroy();
 

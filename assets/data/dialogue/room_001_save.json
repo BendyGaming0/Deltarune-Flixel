@@ -1,0 +1,45 @@
+{
+    "style": "darkworld",
+    "dialogue": [
+        {
+            "portrait": "none",
+            "text": "The feeling of never being able to escape...",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        },
+        {
+            "portrait": "none",
+            "text": "Fills you with dread",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        },
+        {
+            "portrait": "none",
+            "text": "You weren't able to save",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        },
+        {
+            "portrait": "none",
+            "text": "Mainly because it hasn't been implimented yet",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        },
+        {
+            "portrait": "none",
+            "text": "Sorry! :/",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        }
+    ]
+}

@@ -1,0 +1,16 @@
+{
+    "id": "chapter_2",
+    "group": "DELTARUNE",
+    "type": "deltarune_chapter",
+    "previousChapter": "chapter_1",
+    "requiredChapters": [],
+    "chapterSelect": {
+        "label": "Chapter 2",
+        "title": "A Cyber's World",
+        "iconSuffix": "ch2"
+    },
+    "saveCount": 3,
+    "saveSelectStyles": [{
+        "style": "default"
+    }]
+}

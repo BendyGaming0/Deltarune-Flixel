@@ -1,10 +1,8 @@
 package deltarune.tools;
 
 #if desktop
-import discord_rpc.DiscordRpc;
+import hxdiscord_rpc.Discord;
+import hxdiscord_rpc.Types;
 #end
 
-class Discord
-{
-
-}
+class Discord {}

@@ -1,31 +1,25 @@
 package deltarune.game.states;
 
 import deltarune.assets.GameAssets;
-import haxe.Json;
-
-import openfl.Assets;
-
-import flixel.addons.transition.FlxTransitionableState;
-import flixel.addons.editors.ogmo.FlxOgmo3Loader;
-import flixel.graphics.frames.FlxFramesCollection;
-import flixel.graphics.frames.FlxTileFrames;
-import flixel.graphics.FlxGraphic;
-import flixel.group.FlxGroup.FlxTypedGroup;
-import flixel.math.FlxPoint;
-import flixel.tile.FlxTilemap;
-import flixel.util.FlxColor;
-import flixel.text.FlxText;
+import deltarune.assets.Paths;
+import deltarune.game.State;
+import deltarune.game.objects.*;
+import deltarune.game.states.substates.Options;
+import deltarune.scripting.GameScript;
 import flixel.FlxCamera;
 import flixel.FlxG;
-
-import deltarune.game.State;
-import deltarune.game.states.substates.Options;
-import deltarune.game.objects.*;
-
-import deltarune.assets.Paths;
-
-import deltarune.scripting.GameScript;
-
+import flixel.addons.editors.ogmo.FlxOgmo3Loader;
+import flixel.addons.transition.FlxTransitionableState;
+import flixel.graphics.FlxGraphic;
+import flixel.graphics.frames.FlxFramesCollection;
+import flixel.graphics.frames.FlxTileFrames;
+import flixel.group.FlxGroup.FlxTypedGroup;
+import flixel.math.FlxPoint;
+import flixel.text.FlxText;
+import flixel.tile.FlxTilemap;
+import flixel.util.FlxColor;
+import haxe.Json;
+import openfl.Assets;
 #if sys
 import sys.FileSystem;
 #end
@@ -33,10 +27,11 @@ import sys.FileSystem;
 class PlayState extends State
 {
 	public static var instance:PlayState;
+
 	public var interactables:FlxTypedGroup<InteractableSprite>;
 	public var collision_layer:FlxTypedGroup<CollisionObject>;
 	public var player:Player;
-	public var dielouge:DeltaDialougeBox;
+	public var dielogue:LegacyDialogueBox;
 
 	var map:FlxOgmo3Loader;
 	var levelValues:Dynamic;
@@ -45,13 +40,14 @@ class PlayState extends State
 
 	var quitText:FlxText;
 	var gameUICamera:FlxCamera;
-	var dialougeCamera:FlxCamera;
+	var dialogueCamera:FlxCamera;
 
 	var quitTimer:Float = 0;
 	var quitLength:Float = 1.5;
 	var doingTheQuit:Bool;
 
 	public var levelString:String;
+
 	var warpTag:String;
 	var xoffset:Float;
 	var yoffset:Float;
@@ -74,8 +70,10 @@ class PlayState extends State
 
 	override public function create()
 	{
-		if (Paths.currentMusic != 'cyber')
-			FlxG.sound.playMusic(GameAssets.music(Paths.getMusic('cyber')), 0.8, true);
+		super.create();
+
+		if (Paths.currentMusic != 'A CYBER\'S WORLD')
+			FlxG.sound.playMusic(GameAssets.music(Paths.getMusic('A CYBER\'S WORLD')), 0.8, true);
 
 		instance = this;
 		doingTheQuit = false;
@@ -84,11 +82,14 @@ class PlayState extends State
 
 		#if hscript
 		var lvlScript = new GameScript();
-		try {
+		try
+		{
 			lvlScript.loadFile('data/levels/level$levelString');
 			if (lvlScript.compiled)
 				scripts.push(lvlScript);
-		} catch(e) {
+		}
+		catch (e)
+		{
 			FlxG.log.error(e.message);
 		}
 
@@ -100,11 +101,14 @@ class PlayState extends State
 					continue;
 
 				var globalScript = new GameScript();
-				try {
+				try
+				{
 					globalScript.loadFile('scripts/' + script);
 					if (globalScript.compiled)
 						scripts.push(globalScript);
-				} catch(e) {
+				}
+				catch (e)
+				{
 					FlxG.log.error(e.message);
 				}
 			}
@@ -130,10 +134,12 @@ class PlayState extends State
 
 			var tilesetObject = null;
 
-			for (tileset in projectData.tilesets) {
+			for (tileset in projectData.tilesets)
+			{
 				if (tileset.label == 'cyberassetsmini')
-					tilesetObject = tileset; }
-			
+					tilesetObject = tileset;
+			}
+
 			leframes = FlxTileFrames.fromGraphic(graphic, new FlxPoint(tilesetObject.tileWidth, tilesetObject.tileWidth),
 				new FlxPoint(tilesetObject.tileSeparationX, tilesetObject.tileSeparationY));
 		}
@@ -146,10 +152,10 @@ class PlayState extends State
 
 		walls.follow();
 
-		dialougeCamera = new FlxCamera();
-		//dialougeCamera.y = -24;
-		dialougeCamera.bgColor = 0x00000000; // transparent
-		FlxG.cameras.add(dialougeCamera, false);
+		dialogueCamera = new FlxCamera();
+		// dialogueCamera.y = -24;
+		dialogueCamera.bgColor = 0x00000000; // transparent
+		FlxG.cameras.add(dialogueCamera, false);
 
 		gameUICamera = new FlxCamera();
 		gameUICamera.bgColor = 0x00000000; // transparent
@@ -163,63 +169,69 @@ class PlayState extends State
 		interactables = new FlxTypedGroup<InteractableSprite>();
 		collision_layer = new FlxTypedGroup<CollisionObject>();
 
-		map.loadEntities(function (entity:EntityData)
+		map.loadEntities(function(entity:EntityData)
 		{
-			switch (entity.name) {
-			case "player":
-				if (!player.warped) {
-					player.setPosition(entity.x, entity.y);
-					player.reverseposition();
-				}
-			case "sign":
-				var newSign = new Sign(entity.x, entity.y);
-				newSign.objectValues = entity.values;
-				newSign.allowCollisions = ANY;
-				interactables.add(newSign);
-				add(newSign.interactionHitbox);
-			case "invisible-sign":
-				var newISign = new InvisibleSign(entity.x, entity.y, entity.values.width, entity.values.height);
-				newISign.objectValues = entity.values;
-				newISign.allowCollisions = NONE;
-				interactables.add(newISign);
-				add(newISign.interactionHitbox);
-			case "save":
-				var newSave = new SavePoint(entity.x, entity.y);
-				newSave.allowCollisions = ANY;
-				interactables.add(newSave);
-				add(newSave.interactionHitbox);
-			case "warpEntrance":
-				if (warpTag == entity.values.entranceTag)
-				{
-					player.setPosition((entity.values.useXoffset ? entity.x + xoffset : entity.x),
-						(entity.values.useYoffset ? entity.y + yoffset : entity.y));
-					player.reverseposition();
-					player.warped = true;
-				}
-			case "warpExit":
-				var newWarp = new WarpPoint(entity.x + entity.values.xOffset, entity.y + entity.values.yOffset, entity.width, entity.height);
-				newWarp.objectValues = entity.values;
-				newWarp.allowCollisions = NONE;
-				interactables.add(newWarp);
-				add(newWarp.interactionHitbox);
-			default:
-				#if hscript
-				if (!scriptNames.contains(entity.name)) {
-					var objScript = new GameScript();
-					
-					try {
-						objScript.loadFile('objects/${entity.name}');
-						var newObj = new ScriptObject(entity.x, entity.y, entity, entity.values, objScript);
-
-						interactables.add(newObj);
-						add(newObj.interactionHitbox);
-					} catch(e) {
-						FlxG.log.error(e.message);
+			switch (entity.name)
+			{
+				case "player":
+					if (!player.warped)
+					{
+						player.setPosition(entity.x, entity.y);
+						player.reverseposition();
 					}
-				}
-				#else
-				FlxG.log.warn("Script based objects are not supported on this platform");
-				#end
+				case "sign":
+					var newSign = new Sign(entity.x, entity.y);
+					newSign.objectValues = entity.values;
+					newSign.allowCollisions = ANY;
+					interactables.add(newSign);
+					add(newSign.interactionHitbox);
+				case "invisible-sign":
+					var newISign = new InvisibleSign(entity.x, entity.y, entity.values.width, entity.values.height);
+					newISign.objectValues = entity.values;
+					newISign.allowCollisions = NONE;
+					interactables.add(newISign);
+					add(newISign.interactionHitbox);
+				case "save":
+					var newSave = new SavePoint(entity.x, entity.y);
+					newSave.allowCollisions = ANY;
+					interactables.add(newSave);
+					add(newSave.interactionHitbox);
+				case "warpEntrance":
+					if (warpTag == entity.values.entranceTag)
+					{
+						player.setPosition((entity.values.useXoffset ? entity.x + xoffset : entity.x),
+							(entity.values.useYoffset ? entity.y + yoffset : entity.y));
+						player.reverseposition();
+						player.warped = true;
+					}
+				case "warpExit":
+					var newWarp = new WarpPoint(entity.x + entity.values.xOffset, entity.y + entity.values.yOffset, entity.width, entity.height);
+					newWarp.objectValues = entity.values;
+					newWarp.allowCollisions = NONE;
+					interactables.add(newWarp);
+					add(newWarp.interactionHitbox);
+				default:
+					#if hscript
+					if (!scriptNames.contains(entity.name))
+					{
+						var objScript = new GameScript();
+
+						try
+						{
+							objScript.loadFile('objects/${entity.name}');
+							var newObj = new ScriptObject(entity.x, entity.y, entity, entity.values, objScript);
+
+							interactables.add(newObj);
+							add(newObj.interactionHitbox);
+						}
+						catch (e)
+						{
+							FlxG.log.error(e.message);
+						}
+					}
+					#else
+					FlxG.log.warn("Script based objects are not supported on this platform");
+					#end
 			}
 		}, "entities");
 
@@ -239,19 +251,19 @@ class PlayState extends State
 		add(collision_layer);
 
 		add(player);
-			add(player.collider);
-			add(player.interactionCollider);
+		add(player.collider);
+		add(player.interactionCollider);
 
 		trace('added player');
 
-		dielouge = new DeltaDialougeBox(0, 400, "data/dialouge/testDialouge.json");
-		dielouge.screenCenter(X);
-		dielouge.cameras = [dialougeCamera];
-		add(dielouge);
+		dielogue = new LegacyDialogueBox(0, 400, "data/dialogue/testDialogue.json");
+		dielogue.screenCenter(X);
+		dielogue.cameras = [dialogueCamera];
+		add(dielogue);
 
-		//dielouge.activated = true; i am getting tired of this dialouge
+		// dielogue.activated = true; i am getting tired of this dialogue
 
-		trace('added dialouge box');
+		trace('added dialogue box');
 
 		quitText = new FlxText(12, 6, 120, "Quiting...");
 		quitText.setFormat('', 32, FlxColor.WHITE, LEFT);
@@ -264,56 +276,59 @@ class PlayState extends State
 
 		add(quitText);
 
-		FlxG.camera.follow(player, TOPDOWN_TIGHT, 0.95);
+		FlxG.camera.follow(player, TOPDOWN_TIGHT, 1);
+		FlxG.camera.pixelPerfectRender = true;
 		FlxG.camera.followLead.set(0, 0);
 		FlxG.camera.focusOn(FlxPoint.weak(player.x + (player.width / 2), player.y + (player.height / 2)));
 		FlxG.camera.bgColor = 0xFF499DF5;
-
-		//bgColor = 0xFF1A4F89;
-
-		super.create();
 	}
 
 	public function changeRoom(Room:String, Entrance:String, X:Float, Y:Float)
 	{
-		FlxG.switchState(new PlayState(Room, Entrance, X, Y));
+		FlxG.switchState(() -> new PlayState(Room, Entrance, X, Y));
 	}
 
-	var cachedDialougeScripts:Map<String, GameScript> = [];
-	var activeDialougeScript:GameScript;
+	var cachedDialogueScripts:Map<String, GameScript> = [];
+	var activeDialogueScript:GameScript;
 
-	public function startDialouge(filename:String)
+	public function startDialogue(filename:String)
 	{
-		remove(dielouge);
-		dielouge = new DeltaDialougeBox(0, 400, 'data/dialouge/$filename.json');
-		dielouge.screenCenter(X);
-		dielouge.cameras = [dialougeCamera];
-		add(dielouge);
+		remove(dielogue);
+		dielogue = new LegacyDialogueBox(0, 400, 'data/dialogue/$filename.json');
+		dielogue.screenCenter(X);
+		dielogue.cameras = [dialogueCamera];
+		add(dielogue);
 
 		#if hscript
 		// var lvlScript = new GameScript();
 		// lvlScript.loadFile('data/levels/level$levelString');
 		// if (lvlScript.compiled)
 		// 	scripts.push(lvlScript);
-		if (cachedDialougeScripts.exists(filename))
+		if (cachedDialogueScripts.exists(filename))
 		{
-			activeDialougeScript = cachedDialougeScripts.get(filename);
-		} else {
-			var dialougeScript = new GameScript();
+			activeDialogueScript = cachedDialogueScripts.get(filename);
+		}
+		else
+		{
+			var dialogueScript = new GameScript();
 
-			try {
-				dialougeScript.loadFile('data/dialouge/$filename');
-				if (dialougeScript.compiled) {
-					cachedDialougeScripts.set(filename, dialougeScript);
-					activeDialougeScript = dialougeScript;
+			try
+			{
+				dialogueScript.loadFile('data/dialogue/$filename');
+				if (dialogueScript.compiled)
+				{
+					cachedDialogueScripts.set(filename, dialogueScript);
+					activeDialogueScript = dialogueScript;
 				}
-			} catch(e) {
+			}
+			catch (e)
+			{
 				FlxG.log.error(e.message);
 			}
 		}
 		#end
 
-		dielouge.activated = true;
+		dielogue.activated = true;
 	}
 
 	override function finishTransIn()
@@ -329,14 +344,19 @@ class PlayState extends State
 		if (player.getScreenPosition().y > 240)
 		{
 			// lower half
-			dialougeCamera.y = 12; //??
-		} else {
-			// upper half
-			dialougeCamera.y = 300; //??
+			dialogueCamera.y = 12; // ??
 		}
-		if (FlxG.keys.pressed.ESCAPE){
+		else
+		{
+			// upper half
+			dialogueCamera.y = 300; // ??
+		}
+		if (FlxG.keys.pressed.ESCAPE)
+		{
 			quitTimer += elapsed;
-		} else {
+		}
+		else
+		{
 			quitTimer = 0;
 		}
 
@@ -345,7 +365,7 @@ class PlayState extends State
 		if (!doingTheQuit && quitTimer >= quitLength)
 		{
 			doingTheQuit = true;
-			FlxG.switchState(new MenuState());
+			FlxG.switchState(() -> new MenuState());
 			Game.border.switchTo();
 		}
 
@@ -356,12 +376,13 @@ class PlayState extends State
 		FlxG.collide(player.collider, collision_layer);
 		FlxG.collide(player.collider, interactables);
 
-		//interactables check
+		// interactables check
 		if (player.controlArray.length <= 0)
 		{
 			for (interactable in interactables)
 			{
-				if (FlxG.overlap(player.interactionCollider, interactable.interactionHitbox) && (Controls.primary.justPressed || interactable.autoTriggered))
+				if (FlxG.overlap(player.interactionCollider, interactable.interactionHitbox)
+					&& (Controls.primary.justPressed || interactable.autoTriggered))
 				{
 					interactable.onInteraction();
 				}

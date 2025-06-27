@@ -1,0 +1,30 @@
+{
+    "spriteOrder": ["box", "portrait:default", "text:text"],
+    "basicSprites": [
+        {
+            "label": "box",
+            "position": {"x": -8, "y": -8},
+            "scale": {"x": 2, "y": 2},
+            "image": "images/darkworldBox.png"
+        }
+    ],
+    "portraits": [
+        {
+            "label": "default",
+            "position": {"x": 74, "y": 80},
+            "scale": {"x": 2, "y": 2},
+            "positionAlignment": "CENTER",
+            "isDefault": true,
+            "textPositionOffset": {"x": 120, "y": 0},
+            "textWidthOffset": -120
+        }
+    ],
+    "text": {
+        "label": "text",
+        "position": {"x": 52, "y": 24},
+        "scale": {"x": 2, "y": 2},
+        "defaultFont": "main",
+        "lineSpacing": 16,
+        "tabSpacing": 48
+    }
+}

@@ -1,0 +1,16 @@
+{
+    "id": "chapter_3",
+    "group": "DELTARUNE",
+    "type": "dummy",
+    "previousChapter": "chapter_2",
+    "requiredChapters": [],
+    "chapterSelect": {
+        "label": "Chapter 3",
+        "title": "Late Night",
+        "iconSuffix": "ch3"
+    },
+    "saveCount": 3,
+    "saveSelectStyles": [{
+        "style": "default"
+    }]
+}

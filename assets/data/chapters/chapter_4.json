@@ -1,0 +1,16 @@
+{
+    "id": "chapter_4",
+    "group": "DELTARUNE",
+    "type": "dummy",
+    "previousChapter": "chapter_3",
+    "requiredChapters": ["chapter_3"],
+    "chapterSelect": {
+        "label": "Chapter 4",
+        "title": "Prophecy",
+        "iconSuffix": "ch4"
+    },
+    "saveCount": 3,
+    "saveSelectStyles": [{
+        "style": "default"
+    }]
+}

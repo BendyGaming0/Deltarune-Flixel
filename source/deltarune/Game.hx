@@ -1,20 +1,19 @@
 package deltarune;
 
-import flixel.util.typeLimit.NextState.InitialState;
+import deltarune.assets.GameAssets;
+import deltarune.assets.OpenFLAssetSystem;
+import deltarune.assets.SysAssetSystem;
+import deltarune.game.states.substates.Options;
+import deltarune.tools.CustomScaleMode;
+import deltarune.tools.LocalSave;
+import flixel.FlxG;
+import flixel.FlxGame;
+import flixel.FlxObject;
 import flixel.system.debug.log.LogStyle;
 import flixel.tile.FlxTilemap;
-import flixel.FlxObject;
-import flixel.FlxGame;
-import flixel.FlxG;
+import flixel.util.typeLimit.NextState.InitialState;
 
-import deltarune.assets.SysAssetSystem;
-import deltarune.assets.OpenFLAssetSystem;
-import deltarune.assets.GameAssets;
-import deltarune.tools.LocalSave;
-import deltarune.tools.CustomScaleMode;
-
-import deltarune.game.states.substates.Options;
-
+// dev note: windows has fucked this file up several times over im sick of having to restore it from the github please help me
 class Game extends FlxGame
 {
 	public static var consoleArguments:Array<String>;
@@ -46,7 +45,8 @@ class Game extends FlxGame
 		FlxG.console.registerFunction('switchBorderIdTo', Game.border.switchToId);
 		FlxG.console.registerFunction('switchBorderTo', Game.border.switchTo);
 		FlxG.console.registerClass(Game);
-		
+		FlxG.mouse.useSystemCursor = true; //to-do, WE HAVE AN OFFICIAL DELTARUNE CURSOR SPRITE BECAUSE OF MIKE!!!! ADD IT!!!!
+
 		Game.border.switchTo();
 
 		globalSave = new LocalSave();
@@ -62,40 +62,42 @@ class Game extends FlxGame
 	 * inline function that checks if value a is null, if so b is return, else a is returned
 	 */
 	public static inline function nullSwitch<T>(a:T, b:T):T
-		return a!=null?a:b;
+		return a != null ? a : b;
 
-	public static function set_developerMode(value:Bool):Bool {
+	public static function set_developerMode(value:Bool):Bool
+	{
 		LogStyle.WARNING.openConsole = value;
 		LogStyle.ERROR.openConsole = value;
 		return FlxG.log.redirectTraces = developerMode = value;
 	}
 
-	public function new(gameWidth = 0, gameHeight = 0, ?initialState:InitialState, updateFramerate = 60, drawFramerate = 60, skipSplash = false, startFullscreen = false)
+	public function new(gameWidth = 0, gameHeight = 0, ?initialState:InitialState, updateFramerate = 60, drawFramerate = 60, skipSplash = false,
+			startFullscreen = false)
 	{
 		super(gameWidth, gameHeight, initialState, updateFramerate, drawFramerate, skipSplash, startFullscreen);
 
-		if (consoleArguments.contains("debugmode")) {
+		if (consoleArguments.contains("debugmode"))
+		{
 			developerMode = true;
 		}
 	}
+	/*@:allow(flixel.FlxG)
+		override function onResize(_):Void
+		{
+			var width:Int = FlxG.stage.stageWidth;
+			var height:Int = FlxG.stage.stageHeight;
 
-	@:allow(flixel.FlxG)
-	override function onResize(_):Void
-	{
-		var width:Int = FlxG.stage.stageWidth;
-		var height:Int = FlxG.stage.stageHeight;
+			// if (Main.screenRatio == SIXTEEN_NINE)
+			// {
+			//	width = Math.round(width * 0.75);
+			//	height = Math.round(height * 0.75);
+			// }
 
-        //if (Main.screenRatio == SIXTEEN_NINE)
-        //{
-		//	width = Math.round(width * 0.75);
-		//	height = Math.round(height * 0.75);
-        //}
+			#if !flash
+			if (FlxG.renderTile)
+				FlxG.bitmap.onContext();
+			#end
 
-		#if !flash
-		if (FlxG.renderTile)
-			FlxG.bitmap.onContext();
-		#end
-
-		resizeGame(width, height);
-	}
+			resizeGame(width, height);
+	}*/
 }

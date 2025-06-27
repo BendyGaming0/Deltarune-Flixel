@@ -13,6 +13,7 @@ enum WiggleEffectType
 
 /**
  * Created by the HaxeFlixel Dev team (thanks!)
+ * To-Do: add falloff to improve accuracy
  */
 class WiggleEffect
 {

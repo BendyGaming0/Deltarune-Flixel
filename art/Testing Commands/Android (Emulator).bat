@@ -1,3 +1,3 @@
 cd ../../
-lime test android -emulator -release
+lime test android -simulator -release
 pause

@@ -1,13 +1,13 @@
 package deltarune.assets;
 
+import haxe.io.Bytes;
 import openfl.display.BitmapData;
 import openfl.media.Sound;
 import openfl.text.Font;
 
-import haxe.io.Bytes;
-
 interface IAssetSystem
 {
+	public var label:String;
 	public function list(directory:String, subdirectory:Bool = false):Array<String>;
 	public function exists(file:String):Bool;
 	public function directoryExists(directory:String):Bool;

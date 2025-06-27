@@ -1,0 +1,13 @@
+{
+    "style": "darkworld",
+    "dialogue": [
+        {
+            "portrait": "none",
+            "text": "Dababy",
+            "speed": 1,
+            "pausespeed": 1,
+            "autocontinue": false,
+            "skippable": true
+        }
+    ]
+}

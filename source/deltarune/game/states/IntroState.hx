@@ -1,14 +1,12 @@
 package deltarune.game.states;
 
 import deltarune.assets.GameAssets;
-import flixel.ui.FlxButton;
-import flixel.FlxSprite;
-import flixel.FlxG;
-
-import deltarune.game.State;
-
-import deltarune.shaders.PulsatingGhostEffect;
 import deltarune.assets.Paths;
+import deltarune.game.State;
+import deltarune.shaders.PulsatingGhostEffect;
+import flixel.FlxG;
+import flixel.FlxSprite;
+import flixel.ui.FlxButton;
 
 class IntroState extends State
 {
@@ -20,11 +18,11 @@ class IntroState extends State
 
 	override public function create()
 	{
-		Game.initialize();
+		super.create();
 
-		FlxG.sound.playMusic(GameAssets.music(Paths.getMusic('anotherhim')), 0.8, true);
+		FlxG.sound.playMusic(GameAssets.music(Paths.getMusic('ANOTHER HIM')), 0.8, true);
 
-	    background = new FlxSprite().loadGraphic(GameAssets.bitmap('images/intro_cutscene/intro_background.png'));
+		background = new FlxSprite().loadGraphic(GameAssets.bitmap('images/intro_cutscene/intro_background.png'));
 
 		background.scale.x = 2.5;
 		background.scale.y = 2.5;
@@ -50,22 +48,22 @@ class IntroState extends State
 		playButton = new FlxButton(0, 225, "BEGIN", clickPlay);
 		playButton.screenCenter(XY);
 
-        add(playButton);
+		add(playButton);
 	}
 
-    override public function update(elapsed:Float)
-    {
-        super.update(elapsed);
+	override public function update(elapsed:Float)
+	{
+		super.update(elapsed);
 
-        intro_shader.update(elapsed);
-    }
+		intro_shader.update(elapsed);
+	}
 
 	function clickPlay()
 	{
 		if (leaving)
-            return;
+			return;
 
 		FlxG.switchState(() -> new TransitionState());
-        leaving = true;
+		leaving = true;
 	}
 }

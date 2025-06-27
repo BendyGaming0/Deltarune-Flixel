@@ -1,0 +1,14 @@
+{
+    "id": "chapter_5",
+    "group": "DELTARUNE",
+    "type": "dummy",
+    "previousChapter": "chapter_4",
+    "requiredChapters": ["chapter_4"],
+    "chapterSelect": {
+        "label": "Chapter 5",
+        "title": "- -",
+        "iconSuffix": "empty"
+    },
+    "saveCount": 3,
+    "saveSelectStyles": []
+}

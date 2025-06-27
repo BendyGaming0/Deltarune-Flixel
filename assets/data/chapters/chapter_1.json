@@ -1,0 +1,19 @@
+{
+    "id": "chapter_1",
+    "group": "DELTARUNE",
+    "type": "deltarune_chapter",
+    "previousChapter": "",
+    "requiredChapters": [],
+    "chapterSelect": {
+        "label": "Chapter 1",
+        "title": "The Beginning",
+        "iconSuffix": "ch1"
+    },
+    "saveCount": 3,
+    "saveSelectStyles": [{
+        "style": "program"
+    },
+    {
+        "style": "story"
+    }]
+}

@@ -1,10 +1,12 @@
-# Deltarune-Flixel
- A Port of Deltarune's Core to HaxeFlixel with features like scripting
+# DELTARUNE HaxeFlixel Port
+![logo](.\art\logo.png)
+
+A project that aims to port DELTARUNE Chapters 1 & 2 to the HaxeFlixel game engine while also providing a base for custom UT/DR content, currently a heavy work in progress missing many key features.
 
 # Compiling from source code
- This guide assumes you already have the basic libraries for compiling a flixel application
+ This guide assumes you already have the basic libraries for compiling a Haxe/OpenFL/HaxeFlixel application
 
- if you dont have flixel setup yet follow the steps on the HaxeFlixel [Getting Started](https://haxeflixel.com/documentation/getting-started/) guide
+ if you dont have HaxeFlixel setup yet follow the steps on the HaxeFlixel [Getting Started](https://haxeflixel.com/documentation/getting-started/) guide
 
  Required Libraries:
 
@@ -13,28 +15,10 @@
     haxelib install hscript
     haxelib install hxdiscord_rpc
 
-## Windows
+## HTML5
+ HTML5 as a target has not been tested and is generally not recommended.
+## Windows and Linux
  No extra setup is required for windows builds, as the project was made on windows.
+ Same goes for linux targets.
 ## Android
- Download Android Studio and install the following
-
- - Android SDK Platform 30
- - Sources for Android 30
- - Android SDK Platform-Tools
- - Android SDK Build-Tools (Latest)
- - Android NDK r15c (This version is outdated and found at https://github.com/android/ndk/wiki/Unsupported-Downloads#ndk-15c-downloads)
- - Android Emulator (Recommended, not needed if you own an android device)
-
- Install Java JDK 11 (Recommended by the OpenFL/Lime team to use [Temurin](https://adoptium.net/))
-
- After which run the command `lime setup android`, most directories should be correct
-
- As of current, the release version of hxcpp encounters an error when compiling for android with for loop variable declaration
-
- To use the development version of hxcpp run the command `haxelib git hxcpp https://github.com/HaxeFoundation/hxcpp.git`
-
- You can use `haxelib set hxcpp VERSION_NUM` to switch between release and git versions
-
- If you encounter any issues related to compilation (compiler error not user error) you ask for help over at the official Haxe discord under the openfl-lime channel
-
- After compiling the .APK is located in `export\android\bin\app\build\outputs\apk\debug`
+ TO-DO, Update this guide, until then, Lime and HXCPP have been updated to support Android builds better, you can use the official guide on the Lime docs.

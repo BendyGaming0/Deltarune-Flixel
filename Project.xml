@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <project xmlns="https://lime.software/project/1.0.2" xmlns:xsi="https://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="https://lime.software/project/1.0.2 https://lime.software/xsd/project-1.0.2.xsd">
+	xsi:schemaLocation="https://lime.software/xsd/project-1.0.2.xsd">
 
 	<!-- _________________________ Application Settings _________________________ -->
 
-	<app title="Deltarune : HaxeFlixelPort" file="Deltarune" main="Main" version="0.0.1" company="HaxeFlixel" />
+	<app title="DELTARUNE" file="DELTARUNE" main="Main" version="0.2.0" company="BendyGaming0" />
 
 	<!--The flixel preloader is not accurate in Chrome. You can use it regularly if you embed the swf into a html file
 		or you can set the actual size of your file manually at "FlxPreloaderBase-onUpdate-bytesTotal"-->
@@ -20,7 +20,7 @@
 	<!-- ____________________________ Window Settings ___________________________ -->
 
 	<!--These window settings apply to all targets-->
-	<window width="640" height="480" fps="60" background="#000000" hardware="true" vsync="false" />
+	<window width="640" height="480" fps="30" background="#000000" hardware="true" vsync="false" />
 
 	<!--HTML5-specific-->
 	<window if="html5" resizable="false" />
@@ -62,8 +62,10 @@
 	<haxedef name="hscriptPos"/>
 	<haxelib name="hscript"/>
 
+	<haxelib name="hxopus"/>
+
 	<!--Discord RPC-->
-	<haxelib name="discord_rpc" if="desktop"/>
+	<haxelib name="hxdiscord_rpc" if="desktop"/>
 
 	<!-- ______________________________ Haxedefines _____________________________ -->
 

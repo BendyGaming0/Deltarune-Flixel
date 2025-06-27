@@ -1,27 +1,24 @@
 package deltarune.game.states.substates;
 
 import deltarune.assets.GameAssets;
-import flixel.tweens.FlxTween;
-import flixel.tweens.FlxEase;
-import flixel.util.FlxColor;
-import flixel.util.FlxTimer;
-import flixel.util.FlxSave;
-import flixel.text.FlxText;
-import flixel.FlxG;
-
+import deltarune.assets.Paths;
 import deltarune.game.SubState;
 import deltarune.game.states.MenuState;
-
-import deltarune.assets.Paths;
 import deltarune.tools.LocalSave;
+import flixel.FlxG;
+import flixel.text.FlxText;
+import flixel.tweens.FlxEase;
+import flixel.tweens.FlxTween;
+import flixel.util.FlxColor;
+import flixel.util.FlxSave;
+import flixel.util.FlxTimer;
 
 class Options extends SubState
 {
 	var returning:Bool;
 	var entering:Bool;
 
-	public static var generalData:Dynamic =
-	{
+	public static var generalData:Dynamic = {
 		fps: 30,
 		show_fps: false,
 		show_memory: false,
@@ -30,8 +27,7 @@ class Options extends SubState
 		sound_volume: 1.0,
 	};
 
-	public static var currentData:Dynamic =
-	{
+	public static var currentData:Dynamic = {
 		play_time: 0.0,
 		name: 'None',
 		vessel_name: 'None',
@@ -40,10 +36,9 @@ class Options extends SubState
 		room_y: 0
 	};
 
-	public static var defaultData(default, never):Dynamic =
-	{
+	public static var defaultData(default, never):Dynamic = {
 		play_time: 0.0,
-		name: 'EMPTY', //create some check for any saves to switch this out for kris or another name
+		name: 'EMPTY', // create some check for any saves to switch this out for kris or another name
 		vessel_name: 'Vessel',
 		room_name: "001",
 		room_x: 0,
@@ -107,11 +102,11 @@ class Options extends SubState
 	{
 		var temp_save = new LocalSave();
 		temp_save.bind('${Game.nullSwitch(target_save_destination, save_destination)}_${Game.nullSwitch(target_save_id, save_id)}');
-        
+
 		if (temp_save.data.general == null)
 			return NoSuccess.NoSaveData;
-		
-        return Reflect.field(temp_save.data.general, data);
+
+		return Reflect.field(temp_save.data.general, data);
 	}
 
 	/*
@@ -121,7 +116,7 @@ class Options extends SubState
 	public static function plopDataIntoSave(data:Dynamic, field:String)
 	{
 		Reflect.setField(Game.chapterSave.data.general, field, data);
-		Game.chapterSave.flush(); //all the currently active data is in "currentData" not the save object
+		Game.chapterSave.flush(); // all the currently active data is in "currentData" not the save object
 		return data;
 	}
 
@@ -151,7 +146,8 @@ class Options extends SubState
 
 	public static function copySaveToSave(copyFrom:FlxSave, copyTo:FlxSave):Bool
 	{
-		try {
+		try
+		{
 			var fields:Array<String> = Reflect.fields(copyFrom.data);
 
 			copyTo.erase();
@@ -162,7 +158,9 @@ class Options extends SubState
 			copyTo.flush();
 
 			return true;
-		} catch (e) {
+		}
+		catch (e)
+		{
 			trace('failed to copy save data, cloned data may be corrupt or empty');
 			return false;
 		}
@@ -172,12 +170,19 @@ class Options extends SubState
 	{
 		trace('setting $field to $value');
 		Reflect.setProperty(generalData, field, value);
-		if (Reflect.getProperty(generalData, field) == value) {trace('success!');}
+		if (Reflect.getProperty(generalData, field) == value)
+		{
+			trace('success!');
+		}
 		Game.globalSave.data.general = generalData;
-		if (flush) {Game.globalSave.flush();}
+		if (flush)
+		{
+			Game.globalSave.flush();
+		}
 	}
 
 	var options:Array<Option> = [];
+
 	static var index:Int = 0;
 
 	override public function create()
@@ -193,40 +198,48 @@ class Options extends SubState
 
 		if (Game.developerMode)
 		{
-			FlxTween.tween(MenuState.instance.dialougeEditButton, {alpha: 0}, 0.5);
+			FlxTween.tween(MenuState.instance.dialogueEditButton, {alpha: 0}, 0.5);
 			FlxTween.tween(MenuState.instance.charEditButton, {alpha: 0}, 0.5);
 			FlxTween.tween(MenuState.instance.battleEditButton, {alpha: 0}, 0.5);
 			FlxTween.tween(MenuState.instance.chapterEditButton, {alpha: 0}, 0.5);
 		}
-		
+
 		new FlxTimer().start(0.5, postCreate);
 
-		var showfpsopt = new Option(options.length, 'FPS', generalData.fps, 'fps', 'int', {
+		var maxFpsOption = new Option(options.length, 'FPS', generalData.fps, 'fps', 'int', {
 			change: 5,
 			min: 30,
-			max: 240,
-			change_func: function(value, change) {
-				FlxG.drawFramerate = FlxG.updateFramerate = (value is Int) ? value : 30;
+			max: 500, // the fastest monitors dont go past 500hz, also, do you really need to play DELTARUNE at 500 FPS?
+			change_func: function(value, change)
+			{
+				FlxG.updateFramerate = FlxG.drawFramerate = (value is Int) ? value : 30;
 			},
 			current: false
 		});
-		options.push(showfpsopt);
-		add(showfpsopt);
+		options.push(maxFpsOption);
+		add(maxFpsOption);
 
-		var showfpsopt = new Option(options.length, 'Show Fps?', generalData.show_fps, 'show_fps', 'bool', {current: false});
-		options.push(showfpsopt);
-		add(showfpsopt);
+		var showFramerateOption = new Option(options.length, 'Show Fps?', generalData.show_fps, 'show_fps', 'bool', {current: false});
+		options.push(showFramerateOption);
+		add(showFramerateOption);
 
-		var showfpsopt = new Option(options.length, 'Show Memory?', generalData.show_memory, 'show_memory', 'bool', {current: false});
-		options.push(showfpsopt);
-		add(showfpsopt);
+		var showMemOption = new Option(options.length, 'Show Memory?', generalData.show_memory, 'show_memory', 'bool', {current: false});
+		options.push(showMemOption);
+		add(showMemOption);
 
-		if (Game.developerMode) {
-			var battleBox = new Option(options.length, 'Test - Battle Box', generalData.show_fps, 'show_fps', 'none', {current: false,
+		var widescreenOption = new Option(options.length, '16:9 Widescreen Mode', generalData.widescreen, 'widescreen', 'bool', {current: false});
+		options.push(widescreenOption);
+		add(widescreenOption);
+
+		if (Game.developerMode)
+		{
+			var battleBox = new Option(options.length, 'Test - Battle Box', generalData.show_fps, 'show_fps', 'none', {
+				current: false,
 				change_func: function(value, change)
 				{
-					FlxG.switchState(new deltarune.editors.BattleBoxTestState());
-				}});
+					FlxG.switchState(() -> new deltarune.editors.BattleBoxTestState());
+				}
+			});
 			options.push(battleBox);
 			add(battleBox);
 		}
@@ -243,7 +256,8 @@ class Options extends SubState
 
 	override public function update(elapsed:Float)
 	{
-		if (!returning && !entering) {
+		if (!returning && !entering)
+		{
 			if (Controls.back.justPressed || FlxG.keys.justPressed.ESCAPE)
 			{
 				returning = true;
@@ -280,7 +294,7 @@ class Options extends SubState
 	{
 		index += chng;
 		if (index < 0)
-			index = options.length-1;
+			index = options.length - 1;
 		if (index >= options.length)
 			index = 0;
 	}
@@ -302,7 +316,7 @@ class Option extends FlxText
 
 	public function new(index:Int, text:String, value:Dynamic, field:String, type:String, ?properties:OptionConfig)
 	{
-		super((FlxG.width*2) - (320 + 10), (index * 40) + 10, 320, text);
+		super((FlxG.width * 2) - (320 + 10), (index * 40) + 10, 320, text);
 		setFormat('', 32, FlxColor.WHITE, RIGHT);
 		_defaultFormat.font = GameAssets.font(Paths.getFont('8bitoperator_jve')).fontName;
 		antialiasing = false;
@@ -316,15 +330,29 @@ class Option extends FlxText
 
 	public function select()
 	{
-		switch(type)
+		switch (type)
 		{
 			case 'int':
 				trace('cant select int');
 			case 'float':
 				trace('cant select float');
 			case 'bool':
-				if (value == true) {value = false;} else {value = true;}
-				if (properties.current) {trace('oops');} else {Options.setGeneralData(field, value);}
+				if (value == true)
+				{
+					value = false;
+				}
+				else
+				{
+					value = true;
+				}
+				if (properties.current)
+				{
+					trace('oops');
+				}
+				else
+				{
+					Options.setGeneralData(field, value);
+				}
 			default:
 				trace('invalid');
 		}
@@ -332,7 +360,7 @@ class Option extends FlxText
 
 	override public function update(elapsed:Float)
 	{
-		switch(type)
+		switch (type)
 		{
 			case 'int':
 				text = '< ' + value + ' > - ' + optLabel;
@@ -348,33 +376,64 @@ class Option extends FlxText
 
 	public function change(change:Int)
 	{
-		switch(type)
+		switch (type)
 		{
 			case 'int':
-				if (value == null || !(value is Int)) {value = 0;}
+				if (value == null || !(value is Int))
+				{
+					value = 0;
+				}
 				value += change * Std.int(properties.change);
 				if (value < properties.min)
-				{value = Std.int(properties.min);}
+				{
+					value = Std.int(properties.min);
+				}
 				if (value > properties.max)
-				{value = Std.int(properties.max);}
-				if (properties.current) {trace('oops');} else {Options.setGeneralData(field, value);}
+				{
+					value = Std.int(properties.max);
+				}
+				if (properties.current)
+				{
+					trace('oops');
+				}
+				else
+				{
+					Options.setGeneralData(field, value);
+				}
 			case 'float':
 				trace('not complete');
 			case 'bool':
-				if (value == true) {value = false;} else {value = true;}
-				if (properties.current) {trace('oops');} else {Options.setGeneralData(field, value);}
+				if (value == true)
+				{
+					value = false;
+				}
+				else
+				{
+					value = true;
+				}
+				if (properties.current)
+				{
+					trace('oops');
+				}
+				else
+				{
+					Options.setGeneralData(field, value);
+				}
 			default:
 				trace('invalid');
 		}
 
-		if (properties.change_func != null) {properties.change_func(value, change);}
+		if (properties.change_func != null)
+		{
+			properties.change_func(value, change);
+		}
 	}
 }
 
-typedef OptionConfig = 
+typedef OptionConfig =
 {
 	var ?change:Float;
-	var ?change_func: Dynamic -> Int -> Void ;
+	var ?change_func:Dynamic->Int->Void;
 	var ?min:Float;
 	var ?max:Float;
 	var ?current:Bool;
@@ -382,7 +441,7 @@ typedef OptionConfig =
 
 enum NoSuccess
 {
-    GenericFailure;
-    NoSaveData;
-    NoData;
+	GenericFailure;
+	NoSaveData;
+	NoData;
 }

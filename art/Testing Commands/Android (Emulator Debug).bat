@@ -1,3 +1,3 @@
 cd ../../
-lime test android -emulator -debug
+lime test android -simulator -debug
 pause

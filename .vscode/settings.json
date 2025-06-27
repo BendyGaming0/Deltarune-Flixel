@@ -3,11 +3,14 @@
 		"export/**/*.hx": true
 	},
 	"[haxe]": {
-		"editor.formatOnSave": true,
+		"editor.formatOnSave": false,
 		"editor.formatOnPaste": true,
 		"editor.codeActionsOnSave": {
 			"source.sortImports": "explicit"
 		}
 	},
-	"haxe.enableExtendedIndentation": true
+	"haxe.enableExtendedIndentation": true,
+	"cSpell.words": [
+		"deltarune"
+	]
 }

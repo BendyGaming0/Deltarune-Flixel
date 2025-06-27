@@ -1,0 +1,10 @@
+{
+    "speeds": {
+        "normal": 240,
+        "shortrun": 360,
+        "mediumruntime": 0.3,
+        "mediumrun": 480,
+        "longruntime": 2.0,
+        "longrun": 540
+    }
+}
